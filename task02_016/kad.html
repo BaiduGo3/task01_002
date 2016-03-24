@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Task02_016</title>
+  </head>
+<body>
+
+  <form id="myform">
+    <label>城市名称：<input id="aqi-city-input" type="text"></label><br>
+    <label>空气质量指数：<input id="aqi-value-input" type="text"></label><br>
+    <button type="button" id="add-btn">确认添加</button>
+    <button type="button" id="set" onclick="reset()">重置</button>
+  </form>
+  
+  <table id="aqi-table">
+  <!-- 
+    <tr>
+      <td>城市</td><td>空气质量</td><td>操作</td>
+    </tr>
+    <tr>
+      <td>北京</td><td>90</td><td><button>删除</button></td>
+    </tr>
+    <tr>
+      <td>北京</td><td>90</td><td><button>删除</button></td>
+    </tr>
+   -->
+  </table>
+  <p>第一种写法task1.js：添加onclick事件到button传参直接remove一行tr。字符串拼接可读性较差。</p>
+  <!--<script src="js/task1.js"></script>-->
+  <p>第二种写法task2.js：事件代理，重新渲染table。</p>
+  <script src="js/task2.js"></script>
+</body>
+</html>
