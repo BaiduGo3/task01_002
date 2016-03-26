@@ -39,8 +39,9 @@ function getData() {
   var list = $("source").getElementsByTagName("li");
   for(var i = 0; i < list.length; i++){
     data[i] = [];
-    data[i].push(list[i].childNodes[0].nodeValue, parseInt(list[i].childNodes[1].innerHTML));
+    data[i].push(list[i].childNodes[0].nodeValue.split('空气质量：'), parseInt(list[i].childNodes[1].innerHTML));
   }
+  console.log(data);
   return data;
 
 }
@@ -58,7 +59,7 @@ function render(data) {
   var num = ['一','二','三','四','五','六','七'];
   var result = $("resort");
   for(var i = 0; i < data.length; i++){
-    result.innerHTML += "<li>第" + num[i] + "名：" + data[i][0] + "<b>" + data[i][1] + "</b></li>"; 
+    result.innerHTML += "<li>第" + num[i] + "名：" + data[i][0] + "空气质量：<b>" + data[i][1] + "</b></li>"; 
   }
 }
 
