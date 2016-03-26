@@ -36,12 +36,14 @@ function $(id){
 /*读取id为source的列表，获取其中城市名字及城市对应的空气质量*/
 function getData() {
   var data = new Array();
+  
   var list = $("source").getElementsByTagName("li");
   for(var i = 0; i < list.length; i++){
     data[i] = [];
-    data[i].push(list[i].childNodes[0].nodeValue.split('空气质量：'), parseInt(list[i].childNodes[1].innerHTML));
+    data[i].push(list[i].childNodes[0].nodeValue.split('空气质量：')[0], parseInt(list[i].childNodes[1].innerHTML));
+    
   }
-  console.log(data);
+  //console.log(data);
   return data;
 
 }
