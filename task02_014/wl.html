@@ -46,8 +46,7 @@ function orderLi(pollutionList){
 	for(var i=0;i<pollutionList.length;i++){
 		var li = document.createElement("li");
 		var text = document.createTextNode("第" + parseInt(i+1) +"名：" 
-					+ pollutionList[i][0] + ", " 
-					+ pollutionList[i][1]);
+					+ pollutionList[i].join());
 		li.appendChild(text);
 		ul.appendChild(li);
 	}
