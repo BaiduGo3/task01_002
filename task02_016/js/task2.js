@@ -73,11 +73,13 @@ function addEvent(element, eventName, func) {
     }
 }
 function delegateEvent(element, tag, eventName, func) {
-    addEvent(element, eventName, function (e) {
-    	console.log(e);
+    addEvent(element, eventName, function (event) {
+    	console.log(event);
     	//console.log(arguments[0]);
-        var _event = e || window.event;
+    	/*事件处理函数的第一个参数argument[0]默认为是该事件的event对象*/
+        var event = event || window.event;
         var target = event.target || event.srcElement;
+        console.log(target);
         if(target && target.tagName === tag.toUpperCase()) {
         	console.log(event.target.dataset.city);
         	func.call(null, event.target.dataset.city);//这里暂时不明白为什么要传入第一个null参数，只传第二个参数会是undefined。
