@@ -38,9 +38,10 @@ function getData() {
   var source = document.getElementById("source");
   var lis = source.getElementsByTagName("li");
   for(var i=0;i<lis.length;i++){
-  	var city = lis[i].innerHTML.substring(0,2);   //或者substr(0,2)或者slice(0,2)
-  	var num = lis[i].getElementsByTagName("b")[0].innerHTML;
-  	data.push([city,num]);
+    dataSub = lis[i].textContent.split(/空气质量：/);
+  	//var city = lis[i].innerHTML.substring(0,2);   //或者substr(0,2)或者slice(0,2)
+  	//var num = lis[i].getElementsByTagName("b")[0].innerHTML;
+  	data.push(dataSub);
   }
   /*
   data = [
