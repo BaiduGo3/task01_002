@@ -1,0 +1,79 @@
+<!DOCTYPE>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Task02_017</title>
+    <style>
+      *{
+        margin: 0;
+        box-sizing:border-box;
+        font-family: "Microsoft Yahei";
+      }
+      body{
+        padding: 20px;
+      }
+      .title {
+        position: absolute;
+        top: -50px;
+        background-color: #fff;
+        z-index: 5;
+        font-size: 12px;
+        width: 120px;
+        padding: 5px;
+        border: 1px solid #666;
+        border-radius: 8px;
+        visibility: hidden;
+      }
+      #aqi-chart-wrap{
+        margin-top: 20px;
+        padding: 0 30px;
+        border:1px solid grey;
+        display: flex;
+        overflow: hidden;
+        height: 560px;
+        align-items: flex-end;
+        justify-content: space-around;
+        border-radius: 15px;
+      }
+      .line{
+        height: 100%;
+      }
+      .item{
+        animation: movein .5s ease-in-out;
+        position: relative;
+        bottom: 0;
+        display: inline-block;
+        box-shadow: 1px 1px 1px #999;
+        /*border-radius: 15px;*/
+        margin:0 auto;
+      }
+      .day{width:1%;}
+      .week{width: 6%;}
+      .month{width: 8%;}
+
+      @keyframes movein{
+        0%{bottom:-100%;}
+        100%{bottom:0;}
+      }
+    </style>
+  </head>
+<body>
+  <fieldset id="form-gra-time">
+    <legend>请选择日期粒度：</legend>
+    <label>日<input name="gra-time" value="day" type="radio" checked="checked"></label>
+    <label>周<input name="gra-time" value="week" type="radio"></label>
+    <label>月<input name="gra-time" value="month" type="radio"></label>
+  </fieldset>
+
+  <fieldset>
+    <legend>请选择查看的城市：</legend>
+    <select id="city-select">
+      <option>北京</option>
+    </select>
+  </fieldset>
+  <p id="text"></p>
+  <div class="aqi-chart-wrap" id="aqi-chart-wrap">
+  </div>
+  <script src="js/kad.js"></script>
+</body>
+</html>
