@@ -215,7 +215,6 @@ function init() {
   initGraTimeForm();
   initCitySelector();
   initAqiChartData();
-  wrap.childNodes[0].style.visibility = 'visible';
 }
 
 init();
