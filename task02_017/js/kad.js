@@ -69,6 +69,17 @@ var pageState = {
   nowGraTime: "day"
 }
 
+function getTime(){
+  switch(pageState.nowGraTime){
+    case "day":
+      return "每日";
+    case "week":
+      return "周平均";
+    case "month":
+      return "月平均";
+  }
+}
+
 //随机颜色
 function randomColor() {
   var rand = Math.floor(Math.random() * 0xffffff).toString(16);
@@ -81,13 +92,22 @@ function randomColor() {
 
 function hoverDetail(){
   wrap.childNodes[0].style.visibility = 'visible';
-  var title= event.target.childNodes[0];
-  title.style.visibility='visible';
+  try{
+    var title= event.target.childNodes[0];
+    title.style.visibility='visible';
+  }catch(e){
+
+  }
+  
 }
 function hideDetail(){
   wrap.childNodes[0].style.visibility = 'visible';
-  var title= event.target.childNodes[0];
-  title.style.visibility='hidden';
+  try{
+    var title= event.target.childNodes[0];
+    title.style.visibility='hidden';
+  }catch(e){
+
+  }
 }
 
 
@@ -102,6 +122,8 @@ function renderChart() {
     content += "</div>";
   }
   wrap.innerHTML = content;
+  var textTitle = city.value + "市" + getTime() + "空气质量数据";
+  text.innerHTML = textTitle;
 }
 
 
