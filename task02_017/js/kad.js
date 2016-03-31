@@ -125,8 +125,8 @@ function renderChart() {
   wrap.innerHTML = content;
   var textTitle = city.value + "市" + getTime() + "空气质量数据";
   text.innerHTML = textTitle;
-  var items = document.getElementsByClassName("item");
-  //console.log(items instanceof Array);
+  var items = document.querySelectorAll(".item");
+  //console.log(items);
   for(var i in items){
     addEvent(items[i], 'mouseover', function(){
       var title= event.target.childNodes[0];
