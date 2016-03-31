@@ -111,6 +111,10 @@ function hideDetail(){
 }
 **/
 
+function getEventTarget(e){
+  e = e || window.event;
+  return e.target || e.srcElement;
+}
 
  //渲染图表
 function renderChart() {
@@ -128,12 +132,14 @@ function renderChart() {
   var items = document.querySelectorAll(".item");
   //console.log(items);
   for(var i in items){
-    addEvent(items[i], 'mouseover', function(){
-      var title= event.target.childNodes[0];
+    addEvent(items[i], 'mouseover', function(event){
+      var target = getEventTarget(event);
+      var title= target.childNodes[0];
       title.style.visibility='visible';
     })
-    addEvent(items[i], 'mouseout', function(){
-      var title= event.target.childNodes[0];
+    addEvent(items[i], 'mouseout', function(event){
+      var target = getEventTarget(event);
+      var title= target.childNodes[0];
       title.style.visibility='hidden';
     })
   }
