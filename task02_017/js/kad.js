@@ -62,7 +62,6 @@ var aqiSourceData = {
 
 // 用于渲染图表的数据
 var chartData = {};
-
 // 记录当前页面的表单选项
 var pageState = {
   nowSelectCity: -1,
@@ -90,6 +89,7 @@ function randomColor() {
   }
 }
 
+/**对父级元素添加mouse事件监听有问题
 function hoverDetail(){
   wrap.childNodes[0].style.visibility = 'visible';
   try{
@@ -109,6 +109,7 @@ function hideDetail(){
 
   }
 }
+**/
 
 
  //渲染图表
@@ -124,6 +125,18 @@ function renderChart() {
   wrap.innerHTML = content;
   var textTitle = city.value + "市" + getTime() + "空气质量数据";
   text.innerHTML = textTitle;
+  var items = document.getElementsByClassName("item");
+  //console.log(items instanceof Array);
+  for(var i in items){
+    addEvent(items[i], 'mouseover', function(){
+      var title= event.target.childNodes[0];
+      title.style.visibility='visible';
+    })
+    addEvent(items[i], 'mouseout', function(){
+      var title= event.target.childNodes[0];
+      title.style.visibility='hidden';
+    })
+  }
 }
 
 
@@ -152,8 +165,8 @@ function citySelectChange() {
 //初始化日、周、月的radio事件，当点击时，调用函数graTimeChange
 function initGraTimeForm() {
   addEvent(time, 'click', graTimeChange);
-  addEvent(document, 'mouseover', hoverDetail);
-  addEvent(document, 'mouseout', hideDetail);
+  //addEvent(document, 'mouseover', hoverDetail);
+  //addEvent(document, 'mouseout', hideDetail);
 }
 
 //初始化城市Select下拉选择框中的选项
