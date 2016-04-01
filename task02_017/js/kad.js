@@ -194,20 +194,35 @@ function initAqiChartData() {
         break;
     case "week"://sunday:0,mon~sat:1~6
         var count = 0, total = 0;//record days within a week and one week's total AQI
-        var week = 1, date, weekDay;
+        var week = 1, date, weekDay, weekMonth = 0;
         for(var i in aqiSourceData[city.value]){
           date = new Date(i);
           weekDay = date.getDay();
-          total += aqiSourceData[city.value][i];
-          count++;
-          if(weekDay == 6){
-              chartData["week" + week] = parseInt(total/count);
+          var m = date.getMonth() + 1;
+          if(weekMonth == date.getMonth()){
+            total += aqiSourceData[city.value][i];
+            count++;
+            if(weekDay == 6){
+              console.log(i, date, weekDay);
+              chartData[m + "月第" + week + "周"] = parseInt(total/count);
               count = 0;
               total = 0;
               week++;
+            }
+          }
+          else {
+            weekMonth = date.getMonth();
+            chartData[date.getMonth() + "月第" + week + "周"] = parseInt(total/count);
+            total = 0;
+            count = 0;
+            week = 0;
+            total += aqiSourceData[city.value][i];
+            count++;
+            week++;
+            console.log(i);
           }
         }
-        chartData["week" + week] = parseInt(total/count);
+        chartData[m + "月第" + week + "周"] = parseInt(total/count);
         break;
     case "month"://Jan~Dec:0~11
         var count = 0, total = 0, month = 0, date;
