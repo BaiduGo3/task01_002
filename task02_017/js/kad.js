@@ -199,10 +199,11 @@ function initAqiChartData() {
           date = new Date(i);
           weekDay = date.getDay();
           var m = date.getMonth() + 1;
+          if(weekDay == 0) weekDay = 7;
           if(weekMonth == date.getMonth()){
             total += aqiSourceData[city.value][i];
             count++;
-            if(weekDay == 6){
+            if(weekDay == 7){
               chartData[m + "月第" + week + "周"] = parseInt(total/count);
               count = 0;
               total = 0;
@@ -210,8 +211,10 @@ function initAqiChartData() {
             }
           }
           else {
+            if(count != 0){
+              chartData[date.getMonth() + "月第" + week + "周"] = parseInt(total/count);
+            }
             weekMonth = date.getMonth();
-            chartData[date.getMonth() + "月第" + week + "周"] = parseInt(total/count);
             total = 0;
             count = 0;
             week = 0;
