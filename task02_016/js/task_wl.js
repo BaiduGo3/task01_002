@@ -70,6 +70,7 @@ function getEventTarget(e){
 	return e.target || e.srcElement;
 }
 
+//跨浏览器的事件处理程序
 function addEvent(obj,type,fn){
 	if(obj.addEventListener){
 		obj.addEventListener(type,fn,false);
@@ -77,7 +78,7 @@ function addEvent(obj,type,fn){
 		obj.attachEvent("on"+type,fn);
 	}
 	else{
-		return false;
+		obj["on"+type] = fn;
 	}
 }
 
