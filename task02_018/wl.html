@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>task 18</title>
+	<style type="text/css">
+		.box{
+			width:500px;
+			height:200px;
+			margin:100px auto;
+		}
+		input{
+			height:24px;
+			border-radius: 3px;
+		}
+		button{
+			color:#000;
+			font-weight: bold;
+			border-radius: 5px;
+			width:70px;
+			height:30px;
+			background:linear-gradient(top,#ccddff,#0066ff); 
+			background:-moz-linear-gradient(top,#ccddff,#0066ff); 
+			background:-webkit-linear-gradient(top,#ccddff,#0066ff); 
+			background:-o-linear-gradient(top,#ccddff,#0066ff); 
+			background:-ms-linear-gradient(top,#ccddff,#0066ff); 
+		}
+		span{
+			width:30px;
+			height:30px;
+			line-height: 30px;
+			margin:20px 20px 0 0;
+			background-color: red;
+			color:#fff;
+			font-size: 16px;
+			display: inline-block;
+			text-align: center;
+			float:left;
+		}
+	</style>
+</head>
+<body>
+	<div class="box">
+		<input type="text" name="number" id="inputNum">
+		<button id="btn1">左侧入</button>
+		<button id="btn2">右侧入</button>
+		<button id="btn3">左侧出</button>
+		<button id="btn4">右侧出</button>
+		<div id="queue">
+		</div>
+	</div>
+	<script src="js/wl.js"></script>
+</body>
+</html>
