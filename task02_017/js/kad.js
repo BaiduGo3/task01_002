@@ -203,7 +203,6 @@ function initAqiChartData() {
             total += aqiSourceData[city.value][i];
             count++;
             if(weekDay == 6){
-              console.log(i, date, weekDay);
               chartData[m + "月第" + week + "周"] = parseInt(total/count);
               count = 0;
               total = 0;
@@ -219,7 +218,6 @@ function initAqiChartData() {
             total += aqiSourceData[city.value][i];
             count++;
             week++;
-            console.log(i);
           }
         }
         chartData[m + "月第" + week + "周"] = parseInt(total/count);
