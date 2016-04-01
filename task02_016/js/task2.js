@@ -77,7 +77,7 @@ function delegateEvent(element, tag, eventName, func) {
     	console.log(event);
     	//console.log(arguments[0]);
     	/*事件处理函数的第一个参数argument[0]默认为是该事件的event对象*/
-        var event = event || window.event;//看到有教程说此处不需要兼容处理
+        var event = event || window.event;
         var target = event.target || event.srcElement;
         console.log(target);
         if(target && target.tagName === tag.toUpperCase()) {

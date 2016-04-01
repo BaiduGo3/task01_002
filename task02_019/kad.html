@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Task02_019</title>
+	<style>
+		*{
+			font-family: "Microsoft Yahei";
+			box-sizing:border-box;	
+		}
+		fieldset{
+			width: auto;
+			max-width: 600px;
+		}
+		ul{
+			list-style: none;
+			display: flex;
+			justify-content: flex-start;
+			align-items:flex-end;
+		}
+		li{
+			position: relative;
+			animation: movein .5s ease-in-out;
+			bottom: 0;
+			display: inline-block;
+			margin: .1%;
+			color: white;
+			font-weight: bold;
+			font-size: 12px;
+			padding: .1%;
+		}
+		@keyframes movein{
+	        0%{bottom:-100%;}
+	        100%{bottom:0;}
+	      }
+	</style>
+</head>
+<body>
+	<fieldset>
+		<legend>表单</legend>
+		<input type="text" id="text">
+		<button type="button" id="leftIn">左侧入</button>
+		<button type="button" id="rightIn">右侧入</button>
+		<button type="button" id="leftOut">左侧出</button>
+		<button type="button" id="rightOut">右侧出</button>
+		<br>
+		<br>
+		<button type="button" id="randomData">随机生成一组数据</button>
+		<button type="button" id="mergesortData">归并排序</button>
+		<button type="button" id="quicksortData">快速排序</button>
+	</fieldset>
+	<ul id="wrap">
+	</ul>
+	<script src = "js/kad.js"></script>
+</body>
+</html>
