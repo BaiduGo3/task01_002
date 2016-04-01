@@ -76,15 +76,15 @@ function renderChart() {
             title.style.position = "absolute";
             title.style.left = event.clientX;
             title.style.top = event.clientY;
-        })
+        });
         addEvent(items[i], 'mouseout', function(event){
             var event = event || window.event;
             var target = event.target || event.srcElement;
             title.style.display = "none";
-        })
+        });
     }
 }
-
+//需要改进的地方：应该对高度用颜色进行区分
 function getRandomColor(){
     var rand = Math.floor(Math.random() * 0xffffff).toString(16);
     if (rand.length === 6) {
