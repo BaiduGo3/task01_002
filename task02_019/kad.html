@@ -13,32 +13,27 @@
 			max-width: 600px;
 		}
 		ul{
+			overflow: hidden;
 			list-style: none;
 			display: flex;
 			justify-content: flex-start;
 			align-items:flex-end;
 		}
 		li{
-			position: relative;
-			animation: movein .5s ease-in-out;
 			bottom: 0;
 			display: inline-block;
 			margin: .1%;
 			color: white;
-			font-weight: bold;
+			/*background-color: red;*/
 			font-size: 12px;
 			padding: .1%;
 		}
-		@keyframes movein{
-	        0%{bottom:-100%;}
-	        100%{bottom:0;}
-	      }
 	</style>
 </head>
 <body>
 	<fieldset>
 		<legend>表单</legend>
-		<input type="text" id="text">
+		<input type="text" id="text" placeholder="请输入10-100内的数字">
 		<button type="button" id="leftIn">左侧入</button>
 		<button type="button" id="rightIn">右侧入</button>
 		<button type="button" id="leftOut">左侧出</button>

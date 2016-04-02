@@ -12,7 +12,7 @@ var mergesortData = $("mergesortData");
 var wrap = $("wrap");
 
 var data = new Array();
-var high = 300;
+var high = 360;
 
 function addEvent(element, eventName, listener) {
     if (element.addEventListener) {
@@ -132,73 +132,157 @@ function getrandomColor(){
 		return getrandomColor();
 	}
 }
+var colorSet = [];
+function getColor(){
+	for(var i = 10; i <= 100; i++){
+		colorSet[i] = getrandomColor();
+	}
+}
+
+/*这个延时函数会出现假死，不用了
+function sleep(numberMillis) {
+	var now = new Date();
+	var exitTime = now.getTime() + numberMillis;
+	while (true) {
+		now = new Date();
+		if (now.getTime() > exitTime)
+		return;
+	}
+}
+*/
+
 //QuickSort
-function Partition(f, l){
-	var temp = data[f];
-	while(f < l){
-		while((f < l) && (temp < data[l])) l--;
-		if(f < l) data[f++] = data[l];
-		while((f < l) && (temp > data[f])) f++;
-		if(f < l) data[l--] = data[f]; 
+function Partition(lef, righ){
+	var temp = data[lef];
+	while(lef < righ){
+		while((lef < righ) && (temp < data[righ])) righ--;
+		if(lef < righ) data[lef++] = data[righ];
+		while((lef < righ) && (temp > data[lef])) lef++;
+		if(lef < righ) data[righ--] = data[lef]; 
 	}
-	if(f == l) data[f] = temp;
-	return f;
+	if(lef == righ) data[lef] = temp;
+	return lef;
 }
-function QuickSort(f, l){
-	if(f < l){
-		var q = Partition(f, l);
-		QuickSort(f, q - 1);
-		QuickSort(q + 1, l);
-	}
+function QuickSort(){
+	//用栈来模拟递归
+	var stk = new Array();
+	stk.push(0);
+	stk.push(data.length - 1);
+	var timer = setInterval(function(){
+		if(stk.length == 0) 
+		{
+			clearInterval(timer);
+			return ;
+		}
+		var R = stk.pop();
+		var L = stk.pop();
+		var q = Partition(L, R);
+
+		if((q - 1) - L + 1 > 1) 
+		{
+			stk.push(L);
+			stk.push(q - 1);
+		}
+		if(R - (q + 1) + 1 > 1)
+		{
+			stk.push(q + 1);
+			stk.push(R);
+		}
+		render();
+	}, 200);
 }
+
 
 //MergeSort
 var tempArr = new Array(65);
-function Merge(s, q, e){
-	var ls = s, le = q;//left substring
-	var rs = q + 1, re = e;//right substring
-	var k = s;//index of Array tempArr
-	while((ls <= le) && (rs <= re)){
-		if(data[ls] < data[rs]) tempArr[k++] = data[ls++];
-		else tempArr[k++] = data[rs++];
-	}
-	while(ls <= le) tempArr[k++] = data[ls++];
-	while(rs <= re) tempArr[k++] = data[rs++];
-	for(var i = s; i <= e; i++){
-		data[i] = tempArr[i];
-	}
+function Merge(s, q, e)
+{
+    var ls = s, le = q;//left substring
+    var rs = q + 1, re = e;//right
+    var k = s;
+    while((ls <= le) && (rs <= re))
+    {
+        if(data[ls] < data[rs]) tempArr[k++] = data[ls++];
+        else tempArr[k++] = data[rs++];
+    }
+    while(ls <= le) tempArr[k++] = data[ls++];
+    while(rs <= re) tempArr[k++] = data[rs++];
+    for(var i = s; i <= e; i++)
+    {
+        data[i] = tempArr[i];
+    }
 }
-function MergeSort(s, e){
-	if(s < e){
-		var q = parseInt((s + e)/2);
-		MergeSort(s, q);
-		MergeSort(q + 1, e);
-		Merge(s, q, e);
-	}
+function MergeSort()
+{
+	var n = data.length - 1;
+    // for(var len = 1; len <= n; len *= 2)
+    // {
+    // 	console.log("len:",len);
+
+    // 	var index;//合并子序列首指针
+    //     for(index = 0; index + len - 1 <= n; index += 2*len)
+    //     {
+    //     	Merge(index, index + len - 1, Math.min(index + 2*len - 1 , n));
+    //     }
+    //     if(index <= n)
+    //     {
+    //         while(index <= n)
+    //         {
+    //             data[index] = tempArr[index];
+    //             index++;
+    //         }
+    //     }
+        
+    // }
+
+
+    var len = 1;
+    var timer = setInterval(function(){
+    	if(len <= n){
+    		var index;//合并子序列首指针
+	        for(index = 0; index + len - 1 <= n; index += 2*len)
+	        {
+	        	Merge(index, index + len - 1, Math.min(index + 2*len - 1 , n));
+	        }
+	        if(index <= n)
+	        {
+	            while(index <= n)
+	            {
+	                data[index] = tempArr[index];
+	                index++;
+	            }
+	        }
+	        len *= 2;
+
+	        render();
+    	}else{
+    		clearInterval(timer);
+			return ;
+    	}
+    	
+    }, 300);
 }
 
 function render(){
-	var content = "";
 	wrap.innerHTML = "";
 	var count = 0;
 	data.forEach(function(i){
-		//content += "<li data-id = "+ count +" style='height:"+ (i/100 * high) +"px;'>" + i + "</li>";
 		var li = document.createElement("li");
 		li.style.height = (i/100 * high) + "px";
-		li.style.background = getrandomColor();
+		li.style.background = colorSet[i];
 		li.title = "No." + count;
 		li.innerHTML = i;
 		li.setAttribute("data-id", count);
 		wrap.appendChild(li);
 		count++;
 	})
-	// wrap.innerHTML = content;
 }
 
 function init(){
 	data.push(99);
 	data.push(10);
 	data.push(23);
+	getColor();
 	render();
 	addEvent(leftIn, 'click', unshift);
 	addEvent(rightIn, 'click', push);
@@ -213,14 +297,13 @@ function init(){
 	});
 	addEvent(randomData, 'click', getrandomData);
 	addEvent(mergesortData, 'click', function(){
-		MergeSort(0, data.length - 1);
+		MergeSort();
 		render();
-		console.log(data);
 	});
-	addEvent(quicksortData, 'click', function(){
-		QuickSort(0, data.length - 1);
-		render();
-		console.log(data);
-	});
+	addEvent(quicksortData, 'click', QuickSort);
 }
+
+
 init();
+
+
