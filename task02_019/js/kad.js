@@ -215,27 +215,6 @@ function Merge(s, q, e)
 function MergeSort()
 {
 	var n = data.length - 1;
-    // for(var len = 1; len <= n; len *= 2)
-    // {
-    // 	console.log("len:",len);
-
-    // 	var index;//合并子序列首指针
-    //     for(index = 0; index + len - 1 <= n; index += 2*len)
-    //     {
-    //     	Merge(index, index + len - 1, Math.min(index + 2*len - 1 , n));
-    //     }
-    //     if(index <= n)
-    //     {
-    //         while(index <= n)
-    //         {
-    //             data[index] = tempArr[index];
-    //             index++;
-    //         }
-    //     }
-        
-    // }
-
-
     var len = 1;
     var timer = setInterval(function(){
     	if(len <= n){
