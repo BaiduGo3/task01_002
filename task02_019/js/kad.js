@@ -296,10 +296,7 @@ function init(){
 		}
 	});
 	addEvent(randomData, 'click', getrandomData);
-	addEvent(mergesortData, 'click', function(){
-		MergeSort();
-		render();
-	});
+	addEvent(mergesortData, 'click', MergeSort);
 	addEvent(quicksortData, 'click', QuickSort);
 }
 
