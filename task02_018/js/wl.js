@@ -83,7 +83,7 @@ addEvent(btnRightOut,"click",function(){
 })
 
 //删除队列中元素
-function deleteNum(index,num){
+function deleteNum(index){
 	queue.splice(index,1);
 	renderQueue()
 }
@@ -93,7 +93,7 @@ function delegateEvent(ele,type,tag,handler){
 		event = event || window.event;
 		var target = event.target || event.srcElement;
 		if(target && target.tagName === tag.toUpperCase()){
-			handler.call(this,target.id,target.innerHTML);
+			handler.call(this,target.id);
 		}
 	});
 }
