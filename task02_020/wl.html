@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>task 19</title>
+	<style type="text/css">
+		*{
+			padding:0;
+			margin:0;
+			font-family: "微软雅黑";
+		}
+		.box{
+			width:90%;
+			height:500px;
+			margin:100px auto;
+			position: relative;
+			text-align: center;
+		}
+		textarea{
+			width:200px;
+			height:80px;
+			position: relative;
+			top:35px;
+			border-radius: 5px;
+		}
+		input{
+			height:24px;
+			border-radius: 3px;
+		}
+		button{
+			color:#000;
+			font-weight: bold;
+			border-radius: 5px;
+			width:80px;
+			height:30px;
+			background:linear-gradient(top,#ccddff,#0066ff); 
+			background:-moz-linear-gradient(top,#ccddff,#0066ff); 
+			background:-webkit-linear-gradient(top,#ccddff,#0066ff); 
+			background:-o-linear-gradient(top,#ccddff,#0066ff); 
+			background:-ms-linear-gradient(top,#ccddff,#0066ff); 
+		}
+		#queue{
+			width:100%;
+			position: absolute;
+			bottom:0;
+			display: flex;
+            align-items: flex-end;
+            justify-content:space-around;
+            margin-top:20px;
+		}
+		#queue span{
+			display: block;
+			background-color: red;
+			margin-right: 2px;
+			color:#fff;
+			font-size: 16px;
+/*			font-weight: bold;*/
+			height:40px;
+			line-height: 40px;
+			padding:0px 5px;
+		}
+	</style>
+</head>
+<body>
+	<div class="box">
+		<!-- <input type="text" name="number" id="inputNum"> -->
+		<textarea id="textarea" placeholder="可输入数字、中文、英文等，可以用回车，逗号，顿号，空格等符号间隔"></textarea>
+		<button id="btn1">左侧入</button>
+		<button id="btn2">右侧入</button>
+		<button id="btn3">左侧出</button>
+		<button id="btn4">右侧出</button>
+		<input type="text" name="search" id="searchInput">
+		<button id="btnSearch">查询</button>
+		<div id="queue">
+		</div>
+	</div>
+	<script src="js/wl.js"></script>
+</body>
+</html>
