@@ -27,7 +27,7 @@ function getValue(){
 	var text = $("textarea").value;
 	var regex = /[,，、\s]/;
 	var append;
-	if(!text||regex.test(text)){
+	if(!text){
 		alert("输入不能为空！");
 	}else if(!/^[,，、\s\da-zA-Z\u4e00-\u9fa5]+$/.test(text)){
 		alert("输入不合法！");
