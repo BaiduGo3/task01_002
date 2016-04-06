@@ -56,10 +56,10 @@ function render(){
 			i++;
 		}else if(i<indexArr.length){
 			boxes[indexArr[i]].style.background = "#00dd00";
-			boxes[indexArr[i-1]].style.background = "red";
+			boxes[indexArr[i-1]].style.background = "#ff0000";
 			i++;
 		}else{
-			boxes[indexArr[i-1]].style.background = "red";
+			boxes[indexArr[i-1]].style.background = "#ff0000";
 			clearInterval(timer);
 			indexArr = [];
 		}
