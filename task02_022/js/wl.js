@@ -3,6 +3,7 @@ var prebtn = $("pre"),
 	postbtn = $("post"),
 	boxes = document.getElementsByTagName("span"),
 	indexArr = [];
+	
 function $(id){
 	return document.getElementById(id);
 }
