@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Task02_018</title>
+	<style>
+		textarea{
+			width:300px;
+			height: 50px;
+		}
+		ul{
+			list-style: none;
+			overflow: hidden;
+			display: flex;
+			justify-content: flex-start;
+			align-items:flex-end;
+		}
+		li{
+			display: inline-block;
+			margin: .5%;
+			background-color: red;
+			color: white;
+			font-weight: bold;
+			padding: .5%;
+		}
+	</style>
+</head>
+<body>
+	<fieldset>
+		<legend>表单</legend>
+		<textarea id="text" placeholder="输入内容为数字、中文、英文等，可通过回车、逗号、顿号、空格等符号作为间隔"></textarea>
+		<button type="button" id="leftIn">左侧入</button>
+		<button type="button" id="rightIn">右侧入</button>
+		<button type="button" id="leftOut">左侧出</button>
+		<button type="button" id="rightOut">右侧出</button>
+		<br><br>
+		<input type="text" name="searchText" id="searchText">
+		<button type="button" id="searchBtn">查询</button>
+	</fieldset>
+	<ul id="list">
+	</ul>
+	<script src = "js/kad.js"></script>
+</body>
+</html>
