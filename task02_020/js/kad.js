@@ -97,13 +97,18 @@ function search(){
 		$(i).style.background = "red";
 	}
 	var key = searchText.value.trim();
-	/*不区分大小写*/
-	var reg = new RegExp(key,"gi");
-	for(var i = 0; i < data.length; i++){
-		if(reg.test(data[i])){
-			$(i).style.background = "purple";
+	if(key == ""){
+		alert("请输入查询关键字~~");
+	}else{
+		/*不区分大小写*/
+		var reg = new RegExp(key,"gi");
+		for(var i = 0; i < data.length; i++){
+			if(reg.test(data[i])){
+				$(i).style.background = "purple";
+			}
 		}
 	}
+	
 }
 
 function init(){
