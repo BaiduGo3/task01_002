@@ -13,6 +13,7 @@ var queueDiv = $("queue");
 // 			34,34,56,76,86,23,23,55,67,67,
 // 			23,56,32,54,23,56,77,87,87,34];
 var queue = [];
+var lock = false;
 
 function $(id){
 	return document.getElementById(id);
@@ -112,11 +113,19 @@ addEvent(btnRandom,"click",function(){
 });
 //冒泡排序按钮
 addEvent(btnBubble,"click",function(){
-	bubbleSort();
+	if(lock){
+		alert("正在排序中，请稍后再试！");
+	}else{
+		bubbleSort();
+	}
 });
 //快速排序按钮
 addEvent(btnQuick,"click",function(){
-	quickSort();
+	if(lock){
+		alert("正在排序中，请稍后再试！");
+	}else{
+		quickSort();
+	}
 });
 //删除队列中元素
 function deleteNum(index,num){
@@ -155,6 +164,7 @@ function renderQueue(){
 
 //冒泡排序
 function bubbleSort(){
+	lock = true;
 	var len = queue.length,
 		i = 0,
 		j = 0,
@@ -178,7 +188,7 @@ function bubbleSort(){
 			}
 		}else{
 			clearInterval(timer);
-			console.log(queue);
+			lock = false;
 			return;
 		}
 	}
@@ -186,13 +196,16 @@ function bubbleSort(){
 
 //快速排序
 function quickSort(){
+	lock = true;
 	var t,front,rear,first,last,span,
 		que = new Array();
 	que.push(0);
 	que.push(queue.length-1);
-	var timer = setInterval(function(){
+	var timer = setInterval(change,200);
+	function change(){
 		if(que.length==0){
 			clearInterval(timer);
+			lock = false;
 			return;
 		}
 		front = que.shift();
@@ -218,7 +231,7 @@ function quickSort(){
 			span = $(rear);
 			span.style.background = "red";
 		}
-	}, 200);
+	}
 }
 	
 function partition(queue,first,last){

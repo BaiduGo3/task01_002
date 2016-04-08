@@ -2,7 +2,8 @@ var prebtn = $("pre"),
 	inbtn = $("in"),
 	postbtn = $("post"),
 	boxes = document.getElementsByTagName("span"),
-	indexArr = [];
+	indexArr = [],
+	lock = false;
 	
 function $(id){
 	return document.getElementById(id);
@@ -49,6 +50,7 @@ function postOrder(index){
 
 //渲染
 function render(){
+	lock = true;
 	var timer = setInterval(change, 500);
 	var i=0;
 	function change(){
@@ -63,6 +65,7 @@ function render(){
 			boxes[indexArr[i-1]].style.background = "#ff0000";
 			clearInterval(timer);
 			indexArr = [];
+			lock = false;
 		}
 	}
 }
@@ -70,16 +73,28 @@ function render(){
 //初始化
 function init(){
 	addEvent(prebtn,"click",function(){
-		preOrder(0);
-		render();
+		if(lock){
+			alert("正在遍历中，请稍后再试");
+		}else{
+			preOrder(0);
+			render();
+		}
 	});
 	addEvent(inbtn,"click",function(){
-		inOrder(0);
-		render();
+		if(lock){
+			alert("正在遍历中，请稍后再试");
+		}else{
+			inOrder(0);
+			render();
+		}
 	});
 	addEvent(postbtn,"click",function(){
-		postOrder(0);
-		render();
+		if(lock){
+			alert("正在遍历中，请稍后再试");
+		}else{
+			postOrder(0);
+			render();
+		}
 	});
 }
 
