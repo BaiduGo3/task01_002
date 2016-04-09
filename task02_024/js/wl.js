@@ -2,7 +2,7 @@ var dft = $('dft'),
 	bft = $('bft'),
 	dfs = $('dfs'),
 	bfs = $('bfs'),
-	root = $('level1'),
+	root = $('root'),
 	input = $('input'),
 	deletebtn = $('delete'),
 	container = $('container'),
@@ -10,6 +10,7 @@ var dft = $('dft'),
 	addInput = $('addInput'),
 	boxes = container.getElementsByTagName("div"),
 	timer,
+	selectedDiv = false,
 	lock = false,
 	flag = false,     //标记查询时是否找到
 	divs = [],        //渲染的顺序数组
@@ -112,25 +113,13 @@ function render(value){
 	}
 }
 
-//被选中节点
-function chooseDiv(){
-	var tag = false;
-	for(var i=0;i<boxes.length;i++){
-		if(boxes[i].style.background == "rgb(0, 102, 255)"){
-			tag = boxes[i];
-			break;
-		}
-	}
-	return tag;
-}
-
-
-//点击节点触发函数
+//选中节点改变颜色
 function clickDivFun(tag){
 	 for(var i=0;i<boxes.length;i++){
 	 	boxes[i].style.background = "#ffffff";
 	 }
 	tag.style.background = "#0066ff";
+	selectedDiv = tag;
 }
 
 //删除节点
@@ -143,20 +132,20 @@ function deleteDivFun(tag){
 	if(parent){
 		parent.removeChild(tag);
 	}
+	selectedDiv = false;
 }
 
 //添加节点
 function addDivFun(){
-	var tag = chooseDiv();
 	var content = addInput.value.trim();
-	if(!tag){
+	if(!selectedDiv){
 		alert("请先选中一个节点！");
 	}else if(!content){
 		alert("请输入要添加节点的内容");
 	}else{
 		adddiv = document.createElement("div");
 		adddiv.innerHTML = content;
-		tag.appendChild(adddiv);
+		selectedDiv.appendChild(adddiv);
 	}
 
 }
@@ -221,9 +210,8 @@ function init(){
 	clickDivEvent(container,"click","div",clickDivFun);
 
 	addEvent(deletebtn,"click",function(){
-		var tag = chooseDiv();
-		if(chooseDiv()){
-			deleteDivFun(tag);
+		if(selectedDiv){
+			deleteDivFun(selectedDiv);
 		}else{
 			alert("请选中一个要删除的节点");
 		}
