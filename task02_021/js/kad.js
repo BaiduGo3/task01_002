@@ -70,7 +70,6 @@ function addDelEvent(eventName, obj){
 			target.style.background = "purple";
 		})
 		addEvent(eventName.childNodes[i], 'click',function(i,event){
-			var target = getTarget(event);
 			//做个闭包传入i值
 			return function(){
 				//console.log(i);
@@ -83,6 +82,8 @@ function addDelEvent(eventName, obj){
 
 //输入空格，逗号，回车时，插入tag
 function insertTag(event){
+	event = event || window.event;
+	var target = getTarget(event);
 	var reg = /，|,| |\s/;
 	var val = this.value;
 	if(reg.test(val)){
@@ -96,7 +97,7 @@ function insertTag(event){
 		}else{
 			alert("输入有重复 或者为 空字符！");
 		}
-		this.value = "";
+		target.value = "";
 	}else if(event.keyCode === 13){
 		val = val.trim();
 		if(tagList.data.indexOf(val) == -1 && val != ""){
@@ -106,7 +107,7 @@ function insertTag(event){
 		}else{
 			alert("输入有重复或者为空字符！");
 		}
-		this.value = "";
+		target.value = "";
 	}
 }
 
