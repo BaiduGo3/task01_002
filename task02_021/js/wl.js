@@ -109,21 +109,25 @@ function isOverTen(arr,append){
 }
 
 //tag输入触发事件
-function tagInput(){
+function tagInput(event){
+	event = event || window.event;
 	var text = $('tag').value;
 	var regex = /[,，\s]+/;
 	var tagContent,flag;
 	if(regex.test(text)){
 		tagContent = text.slice(0,-1).trim();
-		if(tagContent){
-			flag = clearRepeat(tagArr,tagContent);
-			if(!flag){
-				tagArr = isOverTen(tagArr,tagContent);
-				render(tagBox,tagArr);
-				clearValue("tag");
-			}else{
-				clearValue("tag");
-			}
+	}else if(event.keyCode===13){
+		console.log(event.keyCode);
+		tagContent = text.trim();
+	}
+	if(tagContent){
+		flag = clearRepeat(tagArr,tagContent);
+		if(!flag){
+			tagArr = isOverTen(tagArr,tagContent);
+			render(tagBox,tagArr);
+			clearValue("tag");
+		}else{
+			clearValue("tag");
 		}
 	}
 }
@@ -157,7 +161,8 @@ function render(box,arr){
 
 //事件绑定
 function init(){
-	addInputEvent(tag,"input",tagInput);
+	// addInputEvent(tag,"input",tagInput);
+	addInputEvent(tag,"keyup",tagInput);
 	addEvent(tag,"click",function(){
 		clearValue("tag");
 	});
