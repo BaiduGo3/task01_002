@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Task02_021</title>
+	<style>
+		*{
+			font-family: Microsoft YaHei;
+			margin: 0;
+			padding: 0;
+		}
+		div{
+			margin: 20px;
+		}
+		ul{
+			margin-top: 10px;
+			list-style: none;
+			overflow: hidden;
+			display: flex;
+			justify-content:flex-start;
+			align-items:flex-end;
+		}
+		li{
+			display: inline-block;
+			margin: .5%;
+			color:white;
+			background: purple;
+			font-weight: bold;
+			padding: .5%;
+		}
+		li:hover{
+			cursor: pointer;
+		}
+		/*li:hover{
+			background-color: red;
+			cursor: pointer;
+		}
+		li:hover:before{
+			content: "点击删除 ";
+		}*/
+		input{
+			width:260px;
+		}
+		textarea{
+			display: block;
+			margin-bottom: 10px;
+		}
+	</style>
+</head>
+<body>
+	<div>
+		<label for="input">Tag: </label>
+		<input type="text" name="input" id="input" placeholder="输入空格逗号回车时会自动插入tag">
+		<ul id="tag"></ul>
+	</div>
+	<div>
+		<textarea name="textarea" id="textarea" cols="40" rows="8"  placeholder="输入内容通过回车、逗号、顿号、空格等符号作为间隔"></textarea>
+		<button id="hobbybtn">确认兴趣爱好</button>
+		<ul id="hobby"></ul>
+	</div>
+	<script src="js/kad.js"></script>
+</body>
+</html>
