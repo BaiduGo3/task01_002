@@ -2,6 +2,8 @@ function $(id){
 	return document.getElementById(id);
 }
 var lock = false;
+
+//构造函数
 function Tree(root){
 	this.data = new Array();
 	this.root = root;
@@ -53,6 +55,10 @@ var root = $("root");
 var searchkey = $("searchkey");
 var dfssearch = $("dfssearch");
 var bfssearch = $("bfssearch");
+var delbtn = $("delbtn");
+var addText = $("addText");
+var addbtn = $("addbtn");
+var div = document.getElementsByTagName("div");
 
 var tree = new Tree(root);
 
@@ -73,7 +79,7 @@ function showColor(data, kind){
 				data[i].style.backgroundColor = "white";
 			}
 		}else{
-			if(data[i].style.backgroundColor == "red"){
+			if(data[i].style.backgroundColor != "white"){
 				data[i].style.backgroundColor = "white";
 			}
 		}
@@ -81,54 +87,88 @@ function showColor(data, kind){
 }
 
 function find(node){
-	if(node.firstChild.nodeValue.trim().toLowerCase() == searchkey.value.toLowerCase()){
+	if(node.firstChild.nodeValue.trim().toLowerCase() == searchkey.value.trim().toLowerCase()){
 		return true;
 	}else{
 		return false;
 	}
 }
 
+
+var selected = "";
+
+function executeClick(dorb, traorsear){
+	if(lock){
+		alert("遍历中，稍后再操作！");
+	}else{
+		if(dorb == "dfs") tree.dfsTraversal();
+		else if(dorb == "bfs") tree.bfsTraversal();
+		if(traorsear == "tra") tree.render();
+		else if(traorsear == "search") tree.render("search");
+	}
+}
+
 function init(){
+	//dfs
 	addEvent(dfsbtn, "click", function(){
-		if(lock){
-			alert("遍历中，稍后再操作！");
-		}else{
-			tree.dfsTraversal();
-			tree.render();
-		}
+		executeClick("dfs", "tra");
 	});
+	//bfs
 	addEvent(bfsbtn, "click", function(){
-		if(lock){
-			alert("遍历中，稍后再操作！");
-		}else{
-			tree.bfsTraversal();
-			tree.render();
-		}
+		executeClick("bfs", "tra");
 	});
+	//dfssearch
 	addEvent(dfssearch, "click", function(){
-		if(lock){
-			alert("遍历中，稍后再操作！");
-		}else{
-			if(searchkey.value.trim() == ""){
-				alert("请输入查找节点内容！");
-				return;
-			} 
-			tree.dfsTraversal();
-			tree.render("search");
-		}
+		if(searchkey.value.trim() == ""){
+			alert("请输入查找节点内容！");
+			return;
+		} 
+		executeClick("dfs", "search");
 	});
+	//bfssearch
 	addEvent(bfssearch, "click", function(){
-		if(lock){
-			alert("遍历中，稍后再操作！");
+		if(searchkey.value.trim() == ""){
+			alert("请输入查找节点内容！");
+			return;
+		} 
+		executeClick("bfs", "search");
+	});
+	//select node
+	addEvent(root, 'click', function(event){
+		event = event || window.event;
+		var target = event.target || event.srcElement;
+		for(var i = 0; i < div.length; i++){
+			div[i].style.backgroundColor = "white";
+		}
+		if(target && target.tagName === "div".toUpperCase()){
+			target.style.backgroundColor = "purple";
+			selected = target;
 		}else{
-			if(searchkey.value.trim() == ""){
-				alert("请输入查找节点内容！");
-				return;
-			} 
-			tree.bfsTraversal();
-			tree.render("search");
+			selected = "";
 		}
 	});
+	//delete node
+	addEvent(delbtn, "click", function(){
+		if(selected != ""){
+			selected.parentNode.removeChild(selected);
+			selected = "";
+		}else{
+			alert("还未选中节点！");
+		}
+	});
+	//add node
+	addEvent(addbtn, 'click', function(){
+		var addkey = addText.value.trim();
+		if(selected == ""){
+			alert("还未选中节点！");
+		}else if(addkey == ""){
+			alert("请输入节点内容！");
+		}else{
+			var tag = document.createElement("div");
+			tag.innerHTML = addkey;
+			selected.appendChild(tag);
+		}
+	})
 }
 
 init();

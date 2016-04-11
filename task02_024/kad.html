@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Task02_024</title>
+	<style>
+		*{
+			font-family: "Microsoft YaHei";
+			margin: 0;
+			padding: 0;
+			box-sizing:border-box;
+		}
+		.container{
+			margin: 60px auto;
+			max-width: 1290px;
+		}
+		button{
+			display: inline-block;
+			padding: 6px 12px;
+			text-align: center;
+			cursor: pointer;
+			border-radius: 4px;
+			border:1px solid transparent;
+			background-color: #337ab7;
+			color: #fff;
+			font-size: 14px;
+		}
+		button:hover{
+			background-color: #286090;
+		}
+		#root{
+			margin-top: 20px;
+			height: 200px;
+		}
+		div{
+			font-size: 14px;
+			border: 1px solid black;
+			display: flex;
+			justify-content:space-around;
+			width: 100%;
+			margin: 5px;
+			padding: 5px;
+			background-color: white;
+		}
+		input{
+			width: 180px;
+		}
+	</style>
+</head>
+<body>
+	<section class="container">
+		<button id="dfsbtn" type="button">深度优先搜索</button>
+		<button id="bfsbtn" type="button">广度优先搜索</button>
+		<br><br>
+		<input type="text" name="searchkey" id="searchkey" placeholder="输入要查找的节点内容">
+		<button id="dfssearch" type="button">深度优先查询</button>
+		<button id="bfssearch" type="button">广度优先查询</button>
+		<br><br>
+		<button id="delbtn" type="button">删除选中节点及其所有子节点</button>
+		<br><br>
+		<input type="text" placeholder="在选中节点下增加此子节点" name="addText" id="addText">
+		<button id="addbtn" type="button">添加子节点</button>
+		<div id="root">
+			Super
+			<div>
+				Cat
+				<div>
+					Apple
+					<div>Pear</div>
+					<div>Pig</div>
+					<div>Colo</div>
+					<div>Soccor</div>
+				</div>
+				<div>Phone</div>
+				<div>
+					Pen
+					<div>Book</div>
+					<div>School</div>
+				</div>
+			</div>
+			<div>
+				Note
+				<div>
+					Human
+					<div>Code</div>
+					<div>Operate</div>
+					<div>Man</div>
+				</div>
+				<div>
+					Program
+					<div>
+						Bement
+						<div>Cat</div>
+					</div>
+					<div>Glass</div>
+				</div>
+			</div>
+			<div>Fish</div>
+		</div>
+		
+	</section>
+	<script src="js/kad.js"></script>
+</body>
+</html>

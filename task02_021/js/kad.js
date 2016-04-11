@@ -13,22 +13,22 @@ function GetObj(ul){
 		ul.innerHTML = content;
 		addDelEvent(ul, this);
 	}
-	this.unshift = function(str){
-		this.data.unshift(str);
-	}
-	this.push = function(str){
-		this.data.push(str);
-	}
-	this.pop = function(){
-		this.data.pop();
-	}
-	this.shift = function(){
+}
+GetObj.prototype.unshift = function(str){
+	this.data.unshift(str);
+}
+GetObj.prototype.push = function(str){
+	this.data.push(str);
+}
+GetObj.prototype.pop = function(){
+	this.data.pop();
+}
+GetObj.prototype.shift = function(){
+	this.data.shift();
+}
+GetObj.prototype.limit = function(){
+	if(this.data.length > 10){
 		this.data.shift();
-	}
-	this.limit = function(){
-		if(this.data.length > 10){
-			this.data.shift();
-		}
 	}
 }
 
