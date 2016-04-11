@@ -137,7 +137,7 @@ function addLiFun(){
 //查询
 function searchFun(){
 	var content = searchinput.value.trim();
-	var count = 0;
+	var count = 0, ul;
 	clearSpanColor();
 	for(var i=0;i<spans.length;i++){
 		if(spans[i].lastChild.nodeValue == content){
@@ -145,8 +145,11 @@ function searchFun(){
 			if(spans[i].getElementsByTagName('i')[0]){
 				spans[i].getElementsByTagName('i')[0].style.color = "#000";
 			}
-			if(spans[i].parentNode.parentNode.style.display == "none"){
-				spans[i].parentNode.parentNode.style.display = "block";
+			ul = spans[i].parentNode.parentNode;
+			if(ul.style.display == "none"){
+				ul.style.display = "block";
+				ul.parentNode.getElementsByTagName('i')[0].innerHTML = "&#xe63c";
+				ul.parentNode.getElementsByTagName('i')[1].innerHTML = "&#xe632";
 			}
 			count++;
 		}
