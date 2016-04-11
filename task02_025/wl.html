@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>task 25</title>
+	<link rel="stylesheet" href="iconfont.css"/>
+	<style type="text/css">
+		#container{
+			width:70%;
+			margin:100px auto;
+		}
+		#directoryDiv{
+			min-height:324px;
+			padding-left:20%;
+		}
+		ul{
+			display: block;
+		}
+		ul li{
+			list-style: none;
+			margin-top:5px;
+			cursor: pointer;
+		}
+		i{
+			margin-right:5px;
+			cursor: pointer;
+		}
+		button{
+			width:100px;
+			height:40px;
+			line-height: 20px;
+			color:#000; 
+			font-size: 24px;
+			font-family: "微软雅黑";
+			border-radius: 10px;
+			margin:10px 10px;
+		}
+		input{
+			border-radius: 5px;
+			height:33px;
+		}
+		span{
+			padding:3px 5px;
+			border-radius: 3px;
+			color:#000;
+		}
+		span.folder{
+			display: inline-block;
+		}
+	</style>
+</head>
+<body onselectstart = "return false">
+	<div id="container">
+		<div id="directoryDiv">
+			<ul id="directory">
+				<li>
+					<i class="iconfont">&#xe63c;</i>
+					<span class="folder"><i class="iconfont">&#xe632;</i>计算机书目</span>
+					<ul>
+						<li>
+							<i class="iconfont">&#xe63c;</i>
+							<span class="folder"><i class="iconfont">&#xe632;</i>办公室类</span>
+							<ul>
+								<li><span>Windows应用</span></li>
+								<li><span>Office快速入门</span></li>
+							</ul>
+						</li>
+						<li>
+							<i class="iconfont">&#xe63c;</i>
+							<span class="folder"><i class="iconfont">&#xe632;</i>编程类</span>
+							<ul>
+								<li><span>C语言程序设计</span></li>
+								<li><span>Java从入门到精通</span></li>
+								<li><span>Asp.Net入门经典</span></li>
+							</ul>
+						</li>
+						<li>
+							<i class="iconfont">&#xe63c;</i>
+							<span class="folder"><i class="iconfont">&#xe632;</i>网络类</span>
+							<ul>
+								<li><span>网络基础</span></li>
+								<li><span>TCP/IP协议</span></li>
+							</ul>
+						</li>
+						<li>
+							<i class="iconfont">&#xe63c;</i>
+							<span class="folder"><i class="iconfont">&#xe632;</i>动画类</span>
+							<ul>
+								<li><span>PhotoShop创意设计</span></li>
+							</ul>
+						</li>
+					</ul>
+				</li>
+			</ul>
+		</div>
+		<button id="delete">删除</button>
+		<input type="text" id="addinput">
+		<button id="add">添加</button>
+		<input type="text" id="searchinput">
+		<button id="search">查询</button>
+	</div>
+	<script src="js/wl.js"></script>
+</body>
+</html>

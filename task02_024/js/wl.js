@@ -125,13 +125,7 @@ function clickDivFun(tag){
 //删除节点
 function deleteDivFun(tag){
 	var parent = tag.parentNode;
-	var children = tag.childNodes;
-	for(var i=0;i<children.length;i++){
-		children[i].parentNode.removeChild(children[i]);
-	}
-	if(parent){
-		parent.removeChild(tag);
-	}
+	parent.removeChild(tag);
 	selectedDiv = false;
 }
 
@@ -147,7 +141,6 @@ function addDivFun(){
 		adddiv.innerHTML = content;
 		selectedDiv.appendChild(adddiv);
 	}
-
 }
 
 //事件代理
@@ -215,7 +208,7 @@ function init(){
 		}else{
 			alert("请选中一个要删除的节点");
 		}
-	})
+	});
 	addEvent(addbtn,"click",addDivFun);
 }
 
