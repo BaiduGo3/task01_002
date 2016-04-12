@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>task 30</title>
+	<style type="text/css">
+		*{
+			padding:0;
+			margin:0;
+			font-family: "微软雅黑";
+		}
+		#container{
+			position: absolute;
+			top:100px;
+			left:200px;
+		}
+		.row{
+			margin-bottom: 40px;
+		}
+		label{
+			width:150px;
+			float:left;
+			text-align: right;
+			font-size: 26px;
+			font-weight: bold;
+		}
+		input{
+			height:40px;
+			width:500px;
+			border-radius: 5px;
+			border:2px solid #d3d3d3;
+			margin:0 20px 0 40px;
+		}
+		button{
+			width:100px;
+			height:64px;
+			border-radius: 5px;
+			color:#fff;
+			font-size: 26px;
+			font-weight: bold;
+			background-color:rgb(47,121,186); 
+			padding:10px;
+			position: relative;
+			top:3px;
+			border:none;
+			position: relative;
+			left:600px;
+		}
+		span{
+			position: relative;
+			left:-530px;
+			top:40px;
+			font-size: 18px;
+		}
+		.normal{
+			color:#a9a9a9;
+		}
+		.rightSpan{
+			color:#00aa00;
+		}
+		.errorSpan{
+			color:#ff0000;
+		}
+		.rightInput{
+			border:2px solid #00aa00;
+		}
+		.errorInput{
+			border:2px solid #ff0000;
+		}
+	</style>
+</head>
+<body>
+	<div id="container">
+		<div class="row">
+			<label for="name">名称</label>
+			<input type="text" id="name">
+			<span class="normal" id="nameMsg"></span>
+		</div>
+		<div class="row">
+			<label for="password">密码</label>
+			<input type="password" id="password">
+			<span class="normal" id="pwMsg"></span>
+		</div>
+		<div class="row">
+			<label for="pwcheck">密码确认</label>
+			<input type="password" id="pwcheck">
+			<span class="normal" id="pwcheckMsg"></span>
+		</div>
+		<div class="row">
+			<label for="email">邮箱</label>
+			<input type="text" id="email">
+			<span class="normal" id="emailMsg"></span>
+		</div>
+		<div class="row">
+			<label for="tel">手机</label>
+			<input type="text" id="tel">
+			<span class="normal" id="telMsg"></span>
+		</div>
+		<button id="submit">提交</button>
+	</div>
+	<script src="js/wl.js"></script>
+</body>
+</html>
