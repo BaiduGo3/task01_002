@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>task 31</title>
+	<style type="text/css">
+		*{
+			padding:0;
+			margin:0;
+			font-size: 24px;
+		}
+		#container{
+			position: absolute;
+			top:100px;
+			left:200px;
+		}
+		#show{
+			margin-top:50px;
+		}
+		.ident{
+			margin:0 150px 0 100px;
+			font-family: "黑体";
+		}
+		span{
+			font-family: "黑体";
+		}
+		select{
+			width:300px;
+			height: 40px;
+			margin:0 30px 0 20px;
+			border-radius: 5px;
+			border:1px solid #dcdcdc;
+		}
+		input[type="text"]{
+			width:600px;
+			height:40px;
+			margin-left:20px;
+			border-radius: 5px;
+			border:1px solid #dcdcdc;
+		}
+	</style>
+</head>
+<body>
+	<div id="container">
+		<label class="ident"><input type="radio" value="" name="identity" id="inschool" checked="true">在校生</label>
+		<label class="ident"><input type="radio" value="" name="identity" id="outschool">非在校生</label>
+		<div id="show">
+		</div>
+	</div>
+	<script src="js/wl.js"></script>
+</body>
+</html>
