@@ -52,13 +52,13 @@ function addEvent(element, eventName, listener) {
 }
 
 function getTarget(event){
-	event = event || window.event;
+	var event = event || window.event;
 	var target = event.target || event.srcElement;
 	return target;
 }
 
 function addDelEvent(eventName, obj){
-	for(var i = 0; i < eventName.childNodes.length; i++){
+	for(var i = 0, len = eventName.childNodes.length; i < len; i++){
 		addEvent(eventName.childNodes[i], 'mouseover',function(event){
 			var target = getTarget(event);
 			target.innerHTML = "点击删除 " + target.innerHTML;
@@ -82,7 +82,7 @@ function addDelEvent(eventName, obj){
 
 //输入空格，逗号，回车时，插入tag
 function insertTag(event){
-	event = event || window.event;
+	var event = event || window.event;
 	var target = getTarget(event);
 	var reg = /，|,| |\s/;
 	var val = this.value;
