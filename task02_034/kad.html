@@ -51,6 +51,7 @@
 			background-color: red;
 			border-top: 15px solid blue;
 			transform: rotate(0deg);
+			transition: all .5s;
 		}
 	</style>
 </head>
@@ -59,12 +60,17 @@
 		<tbody></tbody>
 	</table>
 	<div class="wrap">
-		<button class="btn" type="button" id="go">GO</button>
-		<button class="btn" type="button" id="left">TUN LEF</button>
-		<button class="btn" type="button" id="right">TUN RIG</button>
-		<button class="btn" type="button" id="back">TUN BAC</button>
+		<button class="btn" type="button" id="traleft">TRA LEF</button>
+		<button class="btn" type="button" id="tratop">TRA TOP</button>
+		<button class="btn" type="button" id="traright">TRA RIG</button>
+		<button class="btn" type="button" id="trabottom">TRA BOT</button>
 		<br><br>
-		<input type="text" id="text" name="text" placeholder="请输入指令">
+		<button class="btn" type="button" id="movleft">MOV LEF</button>
+		<button class="btn" type="button" id="movtop">MOV TOP</button>
+		<button class="btn" type="button" id="movright">MOV RIG</button>
+		<button class="btn" type="button" id="movbottom">MOV BOT</button>
+		<br><br>
+		<input type="text" id="text" name="text" placeholder="试试方向键操作" AUTOCOMPLETE="off">
 		<button class="btn" type="button" id="execute">执行</button>
 	</div>
 	<div id="square" style="display:none;"></div>

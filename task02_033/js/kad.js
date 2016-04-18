@@ -49,7 +49,7 @@ Square.prototype.rotate = function(dir){
 Square.prototype.move = function(){
 	var top = parseInt(this.sq.style.top.split("px")[0]);
 	var left = parseInt(this.sq.style.left.split("px")[0]);
-	if(this.dir == -1 || this. dir == 3){
+	if(this.dir == -1 || this.dir == 3){
 		if(bound(top, left-50)){
 			left -= 50;
 			this.position(top, left);
