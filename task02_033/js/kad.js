@@ -30,7 +30,12 @@ function Square(sq){
 	this.dir = 0;
 	this.deg = 0;
 }
-Square.prototype.init = function(top, left){
+Square.prototype.init = function(){
+	this.sq.style.display = "block";
+	this.sq.style.top = "300px";
+	this.sq.style.left = "300px";
+}
+Square.prototype.position = function(top, left){
 	this.sq.style.top = top + "px";
 	this.sq.style.left = left + "px";
 }
@@ -47,22 +52,22 @@ Square.prototype.move = function(){
 	if(this.dir == -1 || this. dir == 3){
 		if(bound(top, left-50)){
 			left -= 50;
-			this.init(top, left);
+			this.position(top, left);
 		}
 	}else if(this.dir == 1 || this.dir == -3){
 		if(bound(top, left+50)){
 			left += 50;
-			this.init(top, left);
+			this.position(top, left);
 		}
 	}else if(this.dir == 0){
 		if(bound(top-50, left)){
 			top -= 50;
-			this.init(top, left);
+			this.position(top, left);
 		}
 	}else if(this.dir == -2 || this.dir == 2){
 		if(bound(top+50, left)){
 			top += 50;
-			this.init(top, left);
+			this.position(top, left);
 		}
 	}
 }
@@ -99,7 +104,7 @@ function init(){
 	var table = new Table();
 	table.init();
 	var square = new Square($("square"));
-	square.init(300, 300);
+	square.init();
 	var go = $("go");
 	var left = $("left");
 	var right = $("right");
@@ -116,6 +121,7 @@ function init(){
 	addEvent(go, "click", function(){
 		square.move();
 	});
+
 	var text = $("text");
 	text.onkeyup = function(event){
 		if(event.keyCode == 13){
