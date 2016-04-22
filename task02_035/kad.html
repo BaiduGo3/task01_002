@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>Task02_034</title>
+	<title>Task02_035</title>
 	<style>
 		*{
 			font-family: "Microsoft YaHei";
@@ -24,10 +24,8 @@
 		.btn:hover{
 			background-color: #286090;
 		}
-		input{
-			height: 25px;
-		}
 		table{
+			float: left;
 			margin-bottom: 30px;
 			text-align: center;
 			border-collapse: collapse;
@@ -42,7 +40,34 @@
 			height: 50px;
 		}
 		.wrap{
-			margin: 0 50px;
+			margin: 50px;
+			float: left;
+			width: 440px;
+			height: 440px;
+		}
+		.line{
+			background-color: #2c3e50;
+			color: white;
+			width: 40px;
+			text-align: right;
+			float: left;
+			line-height: 20px;
+			font-size: 12px;
+			height: 100%;
+			padding: 5px 0;
+			overflow: hidden;
+		}
+		.line li{
+			padding-right: 5px;
+		}
+		textarea{
+			padding: 5px;
+			border: 0;
+			width: 400px;
+			height: 100%;
+			background-color: #34495e;
+			color: white;
+			line-height: 20px;
 		}
 		#square{
 			position: absolute;
@@ -53,6 +78,11 @@
 			transform: rotate(0deg);
 			transition: all .5s;
 		}
+		body:before, body:after, table:before, table:after, .wrap:before, .wrap:after, .line:before, .line:after{
+			content:"";
+			display: block;
+			clear: both;
+		} 
 	</style>
 </head>
 <body>
@@ -60,18 +90,19 @@
 		<tbody></tbody>
 	</table>
 	<div class="wrap">
-		<button class="btn" type="button" id="traleft">TRA LEF</button>
-		<button class="btn" type="button" id="tratop">TRA TOP</button>
-		<button class="btn" type="button" id="traright">TRA RIG</button>
-		<button class="btn" type="button" id="trabottom">TRA BOT</button>
-		<br><br>
-		<button class="btn" type="button" id="movleft">MOV LEF</button>
-		<button class="btn" type="button" id="movtop">MOV TOP</button>
-		<button class="btn" type="button" id="movright">MOV RIG</button>
-		<button class="btn" type="button" id="movbottom">MOV BOT</button>
-		<br><br>
-		<input type="text" id="text" name="text" placeholder="试试方向键操作" AUTOCOMPLETE="off">
 		<button class="btn" type="button" id="execute">执行</button>
+		<button class="btn" type="button" id="reset">重置</button>
+		<br><br>
+		<ol class="line" id="line"></ol>
+		<textarea name="text" id="text">mov rig 8
+tra bot 3
+MOV LEF
+GO 6
+MOV BOT 10
+mOV RIG 10
+TRA TOP 5
+mov lef 2
+GO 6</textarea>
 	</div>
 	<div id="square" style="display:none;"></div>
 	<script src="js/kad.js"></script>
