@@ -1,6 +1,3 @@
-function $(id){
-	return document.getElementById(id);
-}
 //ie不支持trim
 String.prototype.trim = function(){
 	return this.replace(/(^\s*)|(\s*$)/g,"");
@@ -182,15 +179,6 @@ Square.prototype.movAction = function(val, num){
 	}
 }
 
-function addEvent(element, eventName, listener) {
-    if (element.addEventListener) {
-        element.addEventListener(eventName, listener, false);
-    } else if (element.attachEvent) {
-        element.attachEvent("on" + eventName, listener);
-    } else {
-        element["on" + eventName] = listener;
-    }
-}
 //限定范围
 function bound(top, left){
 	return top > 0 && top <= 500 && left >0 && left <= 500;
@@ -200,7 +188,7 @@ function verify(val){
 	return /^[0-9]+$/.test(val);
 }
 //处理输入行
-function addrow(len){
+function addrow(ol, len){
 	ol.innerHTML = "";
 	var top = text.scrollTop;
 	for(var i = 0; i < len; i++){
@@ -211,45 +199,44 @@ function addrow(len){
 	ol.scrollTop = top;
 }
 //处理扫描和错误标记
-function render(liId, str){
+function render(ol, liId, str){
 	for(var i = 0, len = ol.childNodes.length; i < len; i++){
 		if(ol.childNodes[i].innerHTML == (liId+1)){
-			if(str == "error") ol.childNodes[i].style.backgroundColor = "red";
-			else if(str == "scan") ol.childNodes[i].style.backgroundColor = "purple";
+			if(str == "error") ol.childNodes[i].className += " error";
+			else if(str == "scan") ol.childNodes[i].className += " scan";
 		}
 	}
 }
 //清除颜色
-function clearColor(){
+function clearColor(ol){
 	for(var i = 0, len = ol.childNodes.length; i < len; i++){
-		if(ol.childNodes[i].style.backgroundColor == "purple"){
-			ol.childNodes[i].style.backgroundColor = "";
+		if(ol.childNodes[i].className.match(/scan/)){
+			ol.childNodes[i].className = ol.childNodes[i].className.replace(/scan/i, "");
 		}
 	}
 }
 //textarea初始化
-function textinit(){
+function textinit(text, ol){
 	var order = text.value;
-	order.match(/\n/g) ? addrow(order.match(/\n/g).length+1) : addrow(1);
+	order.match(/\n/g) ? addrow(ol, order.match(/\n/g).length+1) : addrow(ol, 1);
 }
 
-var ol = $("line");
-var text = $("text");
 
 function init(){
 	var table = new Table();
 	table.init();
 	var square = new Square($("square"));
 	square.init();
-
-	textinit();
+	var ol = $("line");
+	var text = $("text");
+	textinit(text, ol);
 	addEvent(text, "focus", function(){
 		if(text.value == ""){
-			addrow(1);
+			addrow(ol, 1);
 		}
 	});
 	addEvent(text, "keyup", function(event){
-		textinit();
+		textinit(text, ol);
 	});
 	addEvent(text, "scroll", function(){
 		var top = text.scrollTop;
@@ -266,8 +253,8 @@ function init(){
 				return;
 			}
 			mark = false;
-			clearColor();
-			render(i, "scan");
+			clearColor(ol);
+			render(ol, i, "scan");
 			var one_order = order[i].trim().split(" ");
 			if(one_order[0].toUpperCase() == "GO"){
 				var num = one_order[1];
@@ -292,8 +279,8 @@ function init(){
 				}
 			}
 			if(mark === false){
-				console.log("error", i);
-				render(i, "error");
+				//console.log("error", i);
+				render(ol, i, "error");
 				clearInterval(timer);
 				return;
 			}

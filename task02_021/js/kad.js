@@ -1,6 +1,10 @@
 function $(id){
 	return document.getElementById(id);
 }
+//ie不支持trim
+String.prototype.trim = function(){
+	return this.replace(/(^\s*)|(\s*$)/g,"");
+}
 
 //构造函数，代码复用
 function GetObj(ul){
