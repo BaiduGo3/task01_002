@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Task02_029</title>
+	<style>
+		*{
+			font-family: "Microsoft YaHei";
+			margin: 0;
+			padding: 0;
+			box-sizing:border-box;
+			font-size: 25px;
+		}
+		form{
+			max-width: 1200px;
+			margin: 100px auto;
+			text-align: center;
+		}
+		button{
+			width: 140px;
+			height: 80px;
+			line-height: 80px;
+			text-align: center;
+			cursor: pointer;
+			border-radius: 5px;
+			border:1px solid transparent;
+			background-color: #337ab7;
+			color: #fff;
+		}
+		button:hover{
+			background-color: #286090;
+		}
+		label,input{
+			line-height: 80px;
+			margin-right: 30px;
+		}
+		input{
+			width: 600px;
+			border-radius: 5px;
+			border: 2px solid lightgrey;
+		}
+		p{
+			color: grey;
+			text-align: left;
+			margin-left: 260px;
+		}
+	</style>
+</head>
+<body>
+	<form>
+		<label for="text">名称</label>
+		<input type="text" name="text">
+		<button type="button" id="surebtn">验证</button>
+		<p id="error">必填，长度为4~16个字符</p>
+	</form>
+</body>
+</html>
