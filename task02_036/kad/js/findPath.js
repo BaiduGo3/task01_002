@@ -44,8 +44,6 @@ function findPath(square, startx, starty, endx, endy){
 	}
 	var order = [];
 	if(ans == 1){
-		SQUARE_POS.x = endx;
-		SQUARE_POS.y = endy;
 		var tempx = endx, tempy = endy;
 		var path = [];
 		while(tempx != -1 && tempy != -1){

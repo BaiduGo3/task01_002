@@ -1,11 +1,4 @@
 var SQUARE_SIZE = 50;
-var mark = false;//judge whether order is right
-
-var SQUARE_POS = {
-	x: 0,
-	y: 0,
-	dir: -10
-};
 
 function Square(sq){
 	this.sq = sq;
@@ -14,22 +7,19 @@ function Square(sq){
 }
 Square.prototype.init = function(){
 	this.sq.style.display = "block";
-	this.sq.style.top = SQUARE_SIZE*4 + "px";
-	this.sq.style.left = SQUARE_SIZE*4 + "px";
+	this.sq.style.top = SQUARE_SIZE + "px";
+	this.sq.style.left = SQUARE_SIZE + "px";
 	this.sq.style.transform = "rotate(0deg)";
-	this.x = SQUARE_SIZE*4;
-	this.y = SQUARE_SIZE*4;
+	this.x = SQUARE_SIZE;
+	this.y = SQUARE_SIZE;
 }
 Square.prototype.position = function(top, left, tag){
-	if(tag == "parse"){
-		SQUARE_POS.x = top/50;
-		SQUARE_POS.y = left/50;
-	}else{
+	if(tag != "parse"){
 		this.sq.style.top = top + "px";
 		this.sq.style.left = left + "px";
-		this.x = top;
-		this.y = left;
 	}
+	this.x = top;
+	this.y = left;
 }
 Square.prototype.rotate = function(dir, tag){
 	mark = true;
@@ -44,36 +34,19 @@ Square.prototype.rotate = function(dir, tag){
 	
 }
 Square.prototype.traleft = function(flag, tag){
-	console.log(flag, tag);
 	mark = true;
-	// var top = this.x;
-	// var left = this.y;
 	var top, left;
-	if(tag === "parse"){
-		top = SQUARE_POS.x*50;
-		left = SQUARE_POS.y*50;
-	}else{
-		top = this.x;
-		left = this.y;
-	}
+	
+	top = this.x;
+	left = this.y;
 
 	var x = top/SQUARE_SIZE, y = (left-SQUARE_SIZE)/SQUARE_SIZE;
-	console.log("++++++++++++++++++++++", bound(top, left-SQUARE_SIZE), map[x][y], x, y, map);
 	if(bound(top, left-SQUARE_SIZE)  && !map[x][y] ){
-		console.log("++++++++++++++++++++++");
-
-
-
-
-
 		if(flag === "build"){
-			// console.log("++++++++++++++++++++++");
 			var id = x + "_" + y;
 			map[x][y] = 1;
 			if(tag != "parse") {
-				// console.log("++++++++++++++++++++++");
 				$(id).className = "wall";
-				// console.log("++++++++++++++++++++++");
 			}
 		}else{
 			left -= SQUARE_SIZE;
@@ -85,16 +58,9 @@ Square.prototype.traleft = function(flag, tag){
 }
 Square.prototype.tratop = function(flag, tag){
 	mark = true;
-	// var top = this.x;
-	// var left = this.y;
 	var top, left;
-	if(tag === "parse"){
-		top = SQUARE_POS.x*50;
-		left = SQUARE_POS.y*50;
-	}else{
-		top = this.x;
-		left = this.y;
-	}
+	top = this.x;
+	left = this.y;
 
 	var x = (top-SQUARE_SIZE)/SQUARE_SIZE, y = left/SQUARE_SIZE;
 	if(bound(top-SQUARE_SIZE, left)  && !map[x][y] ){
@@ -112,24 +78,14 @@ Square.prototype.tratop = function(flag, tag){
 }
 Square.prototype.traright = function(flag, tag){
 	mark = true;
-	// var top = this.x;
-	// var left = this.y;
-
 	var top, left;
-	if(tag === "parse"){
-		top = SQUARE_POS.x*50;
-		left = SQUARE_POS.y*50;
-	}else{
-		top = this.x;
-		left = this.y;
-	}
+	top = this.x;
+	left = this.y;
 
 	var x = top/SQUARE_SIZE, y = (left+SQUARE_SIZE)/SQUARE_SIZE;
-	// console.log(x, y, map, bound(top, left+SQUARE_SIZE));
 	if(bound(top, left+SQUARE_SIZE) && !map[x][y]){
 		if(flag === "build"){
 			var id = x + "_" + y;
-			console.log("^^^^^^^^^^^^^^^^^^^^^^^^", x, y);
 			map[x][y] = 1;
 			if(tag != "parse") $(id).className = "wall";
 		}else{
@@ -142,16 +98,9 @@ Square.prototype.traright = function(flag, tag){
 }
 Square.prototype.trabottom = function(flag, tag){
 	mark = true;
-	// var top = this.x;
-	// var left = this.y;
 	var top, left;
-	if(tag === "parse"){
-		top = SQUARE_POS.x*50;
-		left = SQUARE_POS.y*50;
-	}else{
-		top = this.x;
-		left = this.y;
-	}
+	top = this.x;
+	left = this.y;
 
 	var x = (top+SQUARE_SIZE)/SQUARE_SIZE, y = left/SQUARE_SIZE;
 	if(bound(top+SQUARE_SIZE, left) && !map[x][y] ){

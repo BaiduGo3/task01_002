@@ -1,21 +1,27 @@
-//ie不支持trim
+/**
+ * ie不支持trim
+ */
 String.prototype.trim = function(){
 	return this.replace(/(^\s*)|(\s*$)/g,"");
 }
-
-//限定范围
+/**
+ * 限定范围
+ */
 function bound(top, left){
 	return top > 0 && top <= 500 && left >0 && left <= 500;
 }
 function border(x, y){
 	return x >= 1 && x <= TABLE_SIZE && y >= 1 && y <= TABLE_SIZE;
 }
-
-//验证数字
+/**
+ * 验证数字
+ */
 function verify(val){
 	return /^[0-9]+$/.test(val);
 }
-//处理输入行
+/**
+ * textarea新输入一行
+ */
 function addrow(ol, len){
 	ol.innerHTML = "";
 	var top = text.scrollTop;
@@ -26,7 +32,9 @@ function addrow(ol, len){
 	}
 	ol.scrollTop = top;
 }
-//处理扫描和错误标记
+/**
+ * 处理代码左侧行的显示，有扫描和错误两种标记
+ */
 function render(ol, liId, str){
 	for(var i = 0, len = ol.childNodes.length; i < len; i++){
 		if(ol.childNodes[i].innerHTML == (liId+1)){
@@ -35,7 +43,9 @@ function render(ol, liId, str){
 		}
 	}
 }
-//清除颜色
+/**
+ * 代码左侧行显示清除颜色
+ */
 function clearColor(ol){
 	for(var i = 0, len = ol.childNodes.length; i < len; i++){
 		if(ol.childNodes[i].className.match(/scan/)){
@@ -43,35 +53,27 @@ function clearColor(ol){
 		}
 	}
 }
-//textarea初始化
+/**
+ * textarea初始化，无指令代码时显示一行
+ */
 function textinit(text, ol){
 	var order = text.value;
 	order.match(/\n/g) ? addrow(ol, order.match(/\n/g).length+1) : addrow(ol, 1);
 }
 
-//执行指令
-var timer;
-function testa(){
-	console.log(map);
-}
+/**
+ * 解析指令，主要解析mov to指令
+ */
 function parseOrders(square, text){
-	console.log("in", map[2][3]);
-
-
 	var order = text.value.trim().split("\n");
-	
-
 	var parseOrder = {};
-	SQUARE_POS.x = square.x/50;
-	SQUARE_POS.y = square.y/50;
-
 	for(var j = 0; j < order.length; j++){
 		var one_order = order[j].trim().split(" ");
 		if(one_order[0].toUpperCase() === "MOV" && one_order[1].toUpperCase() == "TO"){
 			var pos = one_order[2].split(",");
 			var x = parseInt(pos[0]), y = parseInt(pos[1]);
 			if(border(x, y)){
-				var movTo = findPath(square, SQUARE_POS.x, SQUARE_POS.y, x, y);
+				var movTo = findPath(square, square.x/50, square.y/50, x, y);
 				parseOrder[j] = movTo;
 			}
 		}else{
@@ -79,10 +81,15 @@ function parseOrders(square, text){
 			handle(square, one_order, "parse");
 		}
 	}
-
 	return parseOrder;
 }
+/**
+ * 运行指令
+ * @params parseOrder 解析好的指令
+ */
 function runOrders(parseOrder, square, ol){
+	square.x = SQUARE_RECORD.x;
+	square.y = SQUARE_RECORD.y;
 	square.dir = SQUARE_RECORD.dir;
 	map = SQUARE_RECORD.tempMap;
 
@@ -92,20 +99,21 @@ function runOrders(parseOrder, square, ol){
 	}
 
 	var i = 0, j = 0;
-	timer = setInterval(function(){
+	var timer = setInterval(function(){
 		mark = false;
 		clearColor(ol);
 		render(ol, i, "scan");
 
 		//单独处理寻路算法到达不了目标位置
 		if(parseOrder[i].length == 0){
+			console.log("can't reach can't reach the end position");
 			render(ol, i, "error");
 			clearInterval(timer);
 			return;
 		}
 		
 		var one_order = parseOrder[i][j].trim().split(" ");
-		handle(square, one_order, "move");
+		handle(square, one_order, "run");
 
 		if(mark === false){
 			render(ol, i, "error");
@@ -125,8 +133,11 @@ function runOrders(parseOrder, square, ol){
 	}, 500);
 
 }
-
-
+/**
+ * 处理一行指令
+ * @params one_order 一行指令
+ * @params tag 表示解析"parse"调用还是运行"run"调用
+ */
 function handle(square, one_order, tag){
 	if(one_order[0].toUpperCase() == "GO"){
 		var num = one_order[1];
@@ -150,7 +161,7 @@ function handle(square, one_order, tag){
 			square.traAction(one_order[1], num, tag);
 		}
 	}else if(one_order[0].toUpperCase() == "TUN" && one_order[1]){
-		if(tag != "parse") square.rotate(one_order[1], tag);
+		square.rotate(one_order[1], tag);
 	}else if(one_order[0].toUpperCase() == "BUILD"){
 		square.build(tag);
 	}else if(one_order[0].toUpperCase() == "BRU" && one_order[1]){

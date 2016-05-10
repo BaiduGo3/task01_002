@@ -4,6 +4,7 @@ var SQUARE_RECORD = {
 	dir: -10,
 	map: [],
 };
+var mark = false;//judge whether order is right
 
 function init(){
 	var table = new Table();
