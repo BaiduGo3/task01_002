@@ -1,17 +1,26 @@
+/**
+* @constructor
+* @params x:方块到达位置的x坐标
+* @params y:方块到达位置的y坐标
+* @params dir:方块的方向，顺时针 top|0 right|1 bottom|2 left|3
+*/
 var PosObj = function(x, y, dir){
 	this.x = x;
 	this.y = y;
 	this.dir = dir;
 }
-
+/**
+ * BFS实现寻路算法
+ * @returns {array}
+ */
 function findPath(square, startx, starty, endx, endy){
 	mark = true;
 	var dirx = [-1, 0, 1, 0],
 		diry = [0, 1, 0, -1];
-	var queue = [];
+	var queue = [];//队列实现bfs
 	var pre = [];//记录节点的前驱节点
-
 	var flag = [];//标记节点是否访问过
+
 	for(var i = 0; i <= TABLE_SIZE; i++){
 		flag[i] = [];
 		pre[i] = [];
@@ -25,7 +34,7 @@ function findPath(square, startx, starty, endx, endy){
 	queue.push(posObj);
 	flag[posObj.x][posObj.y] = 1;
 
-	var ans = 0;
+	var ans = 0;//标记是否到达终点(endx,endy)
 	while(queue.length > 0)
 	{
 		var now = queue.shift();

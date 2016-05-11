@@ -85,7 +85,9 @@ function parseOrders(square, text){
 }
 /**
  * 运行指令
- * @params parseOrder 解析好的指令
+ * @params parseOrder:解析好的指令
+ * @params square:小方块对象
+ * @params ol:代码左侧行显示
  */
 function runOrders(parseOrder, square, ol){
 	square.x = SQUARE_RECORD.x;
@@ -111,7 +113,7 @@ function runOrders(parseOrder, square, ol){
 			clearInterval(timer);
 			return;
 		}
-		
+
 		var one_order = parseOrder[i][j].trim().split(" ");
 		handle(square, one_order, "run");
 
@@ -120,7 +122,6 @@ function runOrders(parseOrder, square, ol){
 			clearInterval(timer);
 			return;
 		}
-
 		j++;
 		if(j == parseOrder[i].length){
 			i++;
@@ -135,8 +136,9 @@ function runOrders(parseOrder, square, ol){
 }
 /**
  * 处理一行指令
- * @params one_order 一行指令
- * @params tag 表示解析"parse"调用还是运行"run"调用
+ * @params square:小方块对象
+ * @params one_order:一行指令
+ * @params tag:表示解析"parse"调用还是运行"run"调用
  */
 function handle(square, one_order, tag){
 	if(one_order[0].toUpperCase() == "GO"){
