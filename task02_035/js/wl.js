@@ -72,7 +72,6 @@ chessBoard.prototype.updateChess = function(){
 
 chessBoard.prototype.renderRowNums = function(){
 	var len = textarea.value.split("\n").length;
-	console.log(len);
 	var html = "";
 	for(var i=1;i<=len;i++){
 		html += "<span>" + i + "</span>";
@@ -265,6 +264,7 @@ function init(){
 	addEvent(refreshbtn,"click",function(){
 		chessBoardObj.init();
 		i = 0;
+		textarea.value = "MOV RIG 4\nTRA BOT 3\nMOV LEF\nGO 6\nMOV LEFfffff 3\nTRA BOT 4 \nTRA LEF 5\nMOV RIG 2\nGO 3";
 	});
 }
 
