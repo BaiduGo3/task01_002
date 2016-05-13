@@ -353,6 +353,8 @@ chessBoard.prototype.movTo = function(x1,y1,x2,y2){
 				i = 0;
 				return;
 			}
+			this.chessLeft = resultList[i].x;
+			this.chessTop = resultList[i].y;
 			this.chess.style.top = resultList[i].y + "px";
 			this.chess.style.left = resultList[i].x + "px";
 			i++;
