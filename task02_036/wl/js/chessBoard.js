@@ -256,7 +256,10 @@ chessBoard.prototype.brushWall = function(color){
 }
 
 chessBoard.prototype.randomCreateWall = function(){
-	var wallNum = Math.floor(Math.random() * 9 + 1);
+	var walls = document.getElementsByClassName("wall");
+	for(var i=walls.length-1;i>=0;i--)
+		walls[i].remove();
+	var wallNum = Math.floor(Math.random() * 5 + 4);
 	var wallX;
 	var wallY;
 	for(var i=0;i<wallNum;i++){
