@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>task 36</title>
+	<link rel="stylesheet" tpye="text/css" href="css/wl.css">
+</head>
+<body>
+	<div id="container">
+		<table id="chessboard">	
+		</table>
+		<div class="right">
+			<button id="execute">执行</button>
+			<button id="refresh">Refresh</button>
+			<button id="createWall">随机生成墙</button>
+			<br>
+			<div id="rowNums"></div>
+			<textarea>MOV RIG 4
+TRA BOT 3
+MOV LEF
+GO 6
+build
+bru red
+MOV top 3
+TRA rig 4
+bru #ff0000 
+MOV bot 2
+GO 3
+mov to 3,4</textarea>
+		</div>
+	</div>
+	<script src="js/node.js"></script>
+	<script src="js/path.js"></script>
+	<script src="js/chessBoard.js"></script>
+	<script src="js/main.js"></script>
+</body>
+</html>
