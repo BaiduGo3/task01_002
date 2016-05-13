@@ -40,7 +40,7 @@ function init(){
 				success = chessBoardObj.executeFun(chessBoardObj.instructs[i],i);
 				i++;
 			}
-		}, 2000);	
+		}, 1000);	
 	});
 	addEvent(textarea,"keyup",function(){
 		chessBoardObj.renderRowNums();

@@ -41,30 +41,35 @@ Astar.prototype.searchPath = function(sNode,eNode){
 			isFind = true;
 			break;
 		}
+		var topWall = false,rigWall = false,botWall = false,lefWall = false;
 		//上
 		if(node.y-40 >= 40)
-			this.checkPath(node.x,node.y-40,node,eNode,COST_STRAIGHT);
+			topWall = this.checkPath(node.x,node.y-40,node,eNode,COST_STRAIGHT);
 		//下
 		if(node.y+40 <= 40*this.row)
-			this.checkPath(node.x,node.y+40,node,eNode,COST_STRAIGHT);
+			botWall = this.checkPath(node.x,node.y+40,node,eNode,COST_STRAIGHT);
 		//左
 		if(node.x-40 >= 40)
-			this.checkPath(node.x-40,node.y,node,eNode,COST_STRAIGHT);
+			lefWall = this.checkPath(node.x-40,node.y,node,eNode,COST_STRAIGHT);
 		//右
 		if(node.x+40 <= 40*this.col)
-			this.checkPath(node.x+40,node.y,node,eNode,COST_STRAIGHT);
+			rigWall = this.checkPath(node.x+40,node.y,node,eNode,COST_STRAIGHT);
 		//左上
-		if(node.x-40 >= 40 && node.y-40 >= 40)
-			this.checkPath(node.x-40,node.y-40,node,eNode,COST_DIAGONAL);
+		if(topWall!=-1 && lefWall!=-1)
+			if(node.x-40 >= 40 && node.y-40 >= 40)
+				this.checkPath(node.x-40,node.y-40,node,eNode,COST_DIAGONAL);
 		//左下
-		if(node.x-40 >= 40 && node.y+40 <= 40*this.row)
-			this.checkPath(node.x-40,node.y+40,node,eNode,COST_DIAGONAL);
+		if(botWall!=-1 && lefWall!=-1)
+			if(node.x-40 >= 40 && node.y+40 <= 40*this.row)
+				this.checkPath(node.x-40,node.y+40,node,eNode,COST_DIAGONAL);
 		//右上
-		if(node.x+40 <= 40*this.col && node.y-40 >= 40)
-			this.checkPath(node.x+40,node.y-40,node,eNode,COST_DIAGONAL);
+		if(topWall!=-1 && rigWall!=-1)
+			if(node.x+40 <= 40*this.col && node.y-40 >= 40)
+				this.checkPath(node.x+40,node.y-40,node,eNode,COST_DIAGONAL);
 		//右下
-		if(node.x+40 <= 40*this.col && node.y+40 <= 40*this.row)
-			this.checkPath(node.x+40,node.y+40,node,eNode,COST_DIAGONAL);
+		if(botWall!=-1 && lefWall!=-1)
+			if(node.x+40 <= 40*this.col && node.y+40 <= 40*this.row)
+				this.checkPath(node.x+40,node.y+40,node,eNode,COST_DIAGONAL);
 		//从开始列表中删除，添加到关闭列表中
 		this.closeList.push(this.openList.shift());
 		//开始列表中排序，把F值最低的放到最低端
@@ -74,7 +79,6 @@ Astar.prototype.searchPath = function(sNode,eNode){
 	}
 	if(isFind)
 		this.getPath(resultList,node);
-	console.log("resultList"+resultList);
 	return resultList;
 }
 
@@ -83,12 +87,13 @@ Astar.prototype.checkPath = function(x,y,parNode,eNode,cost){
 	//查找地图中是否能通过
 	if(wallArr[y/40-1][x/40-1] == 0){
 		this.closeList.push(node);
-		return false;
+		return -1;
 	}
 	//查找关闭列表中是否存在
 	if(this.isListContains(this.closeList,x,y) != -1){
 		return false;
 	}
+
 	//查找开启列表中是否存在
 	var index = this.isListContains(this.openList,x,y);
 	if(index != -1){

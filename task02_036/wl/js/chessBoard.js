@@ -340,16 +340,22 @@ chessBoard.prototype.goRight = function(num,move,rotate){
 chessBoard.prototype.movTo = function(x1,y1,x2,y2){
 	var astar = new Astar(this.row,this.col);
 	var resultList = astar.searchPos(x1,y1,x2,y2);
-	var i = 0;
-	var timer = setInterval(function(){
-		var len = resultList.length;
-		if(i == len){
-			clearInterval(timer);
-			i = 0;
-			return;
-		}
-		this.chess.style.top = resultList[i].y + "px";
-		this.chess.style.left = resultList[i].x + "px";
-		i++;
-	}, 500);
+	if(resultList == -1)
+		alert("坐标有误或终点是墙");
+	else if(resultList == 0)
+		alert("不存在路径");
+	else{
+		var i = 0;
+		var timer = setInterval(function(){
+			var len = resultList.length;
+			if(i == len){
+				clearInterval(timer);
+				i = 0;
+				return;
+			}
+			this.chess.style.top = resultList[i].y + "px";
+			this.chess.style.left = resultList[i].x + "px";
+			i++;
+		}, 500);
+	}
 }
