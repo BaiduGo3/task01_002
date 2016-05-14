@@ -71,7 +71,7 @@ Astar.prototype.searchPath = function(sNode,eNode){
 			if(node.x+40 <= 40*this.col && node.y+40 <= 40*this.row)
 				this.checkPath(node.x+40,node.y+40,node,eNode,COST_DIAGONAL);
 		//从开始列表中删除，添加到关闭列表中
-		this.closeList.push(this.openList.shift());
+		this.closeList.push(node);
 		//开始列表中排序，把F值最低的放到最低端
 		this.openList.sort(function(a,b){
 			return a.f - b.f;

@@ -7,8 +7,8 @@ function chessBoard(table,col,row){
 	this.chessTop;
 	this.chessLeft;
 	this.instructs;
-	this.direction = 0;  //0：上  1：右  2： 下   3：左
-	this.moveDirection = 0;
+	this.direction = 0;  //小方块的方向 0：上  1：右  2： 下   3：左
+	this.moveDirection = 0;  //小方块移动的方向
 }
 
 chessBoard.prototype.init = function(){
@@ -76,7 +76,9 @@ chessBoard.prototype.handleInstructs = function(){
 		var ins = this.instructs[i].trim().toUpperCase().split(" ");
 		if(ins[0] == "GO" || ins[0] == "BUILD" || ins[0] == "BRU"){
 			this.instructs[i] = ins[1] == undefined ? [ins[0],1] : [ins[0],ins[1]]
-		}else if(ins[1] && ins[1] == "TO"){
+		}
+		//指令为mov to时
+		else if(ins[1] && ins[1] == "TO"){
 			this.instructs[i] = [ins[0] + ins[1],ins[2]];
 		}else{
 			this.instructs[i] = ins[2] == undefined ? [ins[0]+ins[1],1] : [ins[0] + ins[1],ins[2]]
@@ -165,17 +167,25 @@ chessBoard.prototype.executeFun = function(ins,i){
 			break;
 		case "BUILD":
 			this.createWall();
-			return;
+			return "continue";
 		case "BRU":
 			this.brushWall(ins[1]);
-			return;
+			return "continue";
 		case "MOVTO":
 			var pos = ins[1].split(",");
-			this.movTo(this.chessLeft,this.chessTop,pos[1]*40,pos[0]*40);
-			return;
+			if(this.movTo(this.chessLeft,this.chessTop,pos[1]*40,pos[0]*40,i)){
+				return "movto";
+			}else{
+				row.style.background = "red";
+				return "error";
+			}
+		//由mov to指令解析出来的指令转换成多条FROMMOVTO指令的移动分解指令
+		case "FROMMOVTO":
+			this.fromMovTo(ins[1],ins[2]);
+			return "movto";
 		default:
 			row.style.background = "red";
-			return false;
+			return "error";
 	}
 	if(this.moveDirection == 0)
 		this.goUp(ins[1],move,rotate);
@@ -221,6 +231,20 @@ chessBoard.prototype.createWall = function(){
 	}
 }
 
+chessBoard.prototype.brushWall = function(color){
+	var wall = this.getWallPos();
+	if(this.hasWall(wall.x,wall.y)==true){
+		var wallDiv = document.createElement("div");
+		wallDiv.className = "wall";
+		wallDiv.style.left = wall.x + "px";
+		wallDiv.style.top = wall.y + "px";
+		wallDiv.style.background = color;
+		this.table.parentNode.insertBefore(wallDiv,this.table);
+	}else{
+		console.log("没有墙");
+	}
+}
+
 chessBoard.prototype.isBound = function(x,y){
 	if(x >= 40 && x <= this.col * 40 && y >= 40 && y <= this.row * 40)
 		return false;
@@ -229,6 +253,10 @@ chessBoard.prototype.isBound = function(x,y){
 }
 
 chessBoard.prototype.hasWall = function(x,y){
+	if(this.isBound(x,y)){
+		console.log("到达边界");
+		return "bound";
+	}
 	if(wallArr[y/40-1][x/40-1] == 0)
 		return true;
 	else
@@ -241,25 +269,11 @@ chessBoard.prototype.clearWall = function(){
 		walls[i].remove();
 }
 
-chessBoard.prototype.brushWall = function(color){
-	var wall = this.getWallPos();
-	if(this.hasWall(wall.x,wall.y)){
-		var wallDiv = document.createElement("div");
-		wallDiv.className = "wall";
-		wallDiv.style.left = wall.x + "px";
-		wallDiv.style.top = wall.y + "px";
-		wallDiv.style.background = color;
-		this.table.parentNode.insertBefore(wallDiv,this.table);
-	}else{
-		console.log("没有墙");
-	}
-}
-
 chessBoard.prototype.randomCreateWall = function(){
 	var walls = document.getElementsByClassName("wall");
 	for(var i=walls.length-1;i>=0;i--)
 		walls[i].remove();
-	var wallNum = Math.floor(Math.random() * 5 + 4);
+	var wallNum = Math.floor(Math.random() * 5 + 6);
 	var wallX;
 	var wallY;
 	for(var i=0;i<wallNum;i++){
@@ -340,27 +354,30 @@ chessBoard.prototype.goRight = function(num,move,rotate){
 	this.updateChess();
 }
 
-chessBoard.prototype.movTo = function(x1,y1,x2,y2){
+chessBoard.prototype.movTo = function(x1,y1,x2,y2,i){
 	var astar = new Astar(this.row,this.col);
 	var resultList = astar.searchPos(x1,y1,x2,y2);
-	if(resultList == -1)
+	if(resultList == -1){
 		alert("坐标有误或终点是墙");
-	else if(resultList == 0)
-		alert("不存在路径");
-	else{
-		var i = 0;
-		var timer = setInterval(function(){
-			var len = resultList.length;
-			if(i == len){
-				clearInterval(timer);
-				i = 0;
-				return;
-			}
-			this.chessLeft = resultList[i].x;
-			this.chessTop = resultList[i].y;
-			this.chess.style.top = resultList[i].y + "px";
-			this.chess.style.left = resultList[i].x + "px";
-			i++;
-		}, 500);
+		return false;
 	}
+	else if(resultList == 0){
+		alert("不存在路径");
+		return false;
+	}
+	else{
+		var ins,insList = [];
+		for(var k=0,len=resultList.length-1;k<len;k++){
+			ins = ["FROMMOVTO",resultList[k+1].y,resultList[k+1].x];
+			insList.push(ins);
+		}
+		this.instructs.splice(i,1,insList);
+		return true;
+	}
+}
+
+chessBoard.prototype.fromMovTo = function(x,y){
+	this.chessTop = x;
+	this.chessLeft = y;
+	this.updateChess();
 }
