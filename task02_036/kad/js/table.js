@@ -31,10 +31,14 @@ Table.prototype.wall = function(){
 	for(var i = 0; i < TABLE_SIZE; i++){
 		var x = parseInt(Math.random()*TABLE_SIZE);
 		var y = parseInt(Math.random()*TABLE_SIZE);
-		if(border(x, y)){
+		if(this.bound(x * SQUARE_SIZE, y * SQUARE_SIZE) && x!= 1 && y != 1){
 			var id = x + "_" + y;
 			$(id).className = "wall";
 			map[x][y] = 1;
 		}
 	}
+}
+Table.prototype.bound = function(top, left){
+	var len = SQUARE_SIZE * TABLE_SIZE;
+	return top > 0 && top <= len && left >0 && left <= len;
 }

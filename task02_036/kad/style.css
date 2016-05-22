@@ -75,10 +75,16 @@ textarea{
 	position: absolute;
 	width: 50px;
 	height: 50px;
-	background-color: red;
-	border-top: 15px solid blue;
+	/*background-color: red;
+	border-top: 15px solid blue;*/
+	transition-property: left, top, transform;
+	/*transition-duration: 1s;*/
 	transform: rotate(0deg);
 	transition: all .5s;
+}
+#square img{
+	width: 50px;
+	height: 50px;
 }
 body:before, body:after, table:before, table:after, .wrap:before, .wrap:after, .line:before, .line:after{
 	content:"";
@@ -88,4 +94,10 @@ body:before, body:after, table:before, table:after, .wrap:before, .wrap:after, .
 
 .wall{
 	background-color: rgb(204,204,204);
+}
+#p{
+	position: absolute;
+	bottom: 50px;
+	left: 50px;
+	color: grey;
 }

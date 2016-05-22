@@ -5,19 +5,17 @@ String.prototype.trim = function(){
 	return this.replace(/(^\s*)|(\s*$)/g,"");
 }
 /**
- * 限定范围
- */
-function bound(top, left){
-	return top > 0 && top <= 500 && left >0 && left <= 500;
-}
-function border(x, y){
-	return x >= 1 && x <= TABLE_SIZE && y >= 1 && y <= TABLE_SIZE;
-}
-/**
- * 验证数字
- */
-function verify(val){
-	return /^[0-9]+$/.test(val);
+ * 验证指令
+*/
+function checkCmd(one_order){
+	var regGo = /^GO(\s\d+)?$/i;
+	// var regGo = new RegExp("GO(\s\d+)?", "i");
+	var regTun = /^TUN\s(LEF|RIG|TOP|BOT)$/i;
+    var regTraMov = /^(TRA|MOV)\s(LEF|RIG|TOP|BOT)(\s\d+)?$/i;
+    var regBuild = /^BUILD$/i;
+    var regBru = /^BRU\s(#[0-9A-Fa-f]{3}|#[0-9A-Fa-f]{6}|[A-Za-z]+)$/i;
+    var regMovTo = /^MOV\sTO\s\d+,\d+$/i;
+    return !regGo.test(one_order) && !regTun.test(one_order) && !regTraMov.test(one_order) && !regBuild.test(one_order) && !regBru.test(one_order) && !regMovTo.test(one_order);
 }
 /**
  * textarea新输入一行
@@ -35,11 +33,11 @@ function addrow(ol, len){
 /**
  * 处理代码左侧行的显示，有扫描和错误两种标记
  */
-function render(ol, liId, str){
+function sideRender(ol, liId, flag){
 	for(var i = 0, len = ol.childNodes.length; i < len; i++){
 		if(ol.childNodes[i].innerHTML == (liId+1)){
-			if(str == "error") ol.childNodes[i].className += " error";
-			else if(str == "scan") ol.childNodes[i].className += " scan";
+			if(flag == "error") ol.childNodes[i].className += " error";
+			else if(flag == "scan") ol.childNodes[i].className += " scan";
 		}
 	}
 }
@@ -59,114 +57,4 @@ function clearColor(ol){
 function textinit(text, ol){
 	var order = text.value;
 	order.match(/\n/g) ? addrow(ol, order.match(/\n/g).length+1) : addrow(ol, 1);
-}
-
-/**
- * 解析指令，主要解析mov to指令
- */
-function parseOrders(square, text){
-	var order = text.value.trim().split("\n");
-	var parseOrder = {};
-	for(var j = 0; j < order.length; j++){
-		var one_order = order[j].trim().split(" ");
-		if(one_order[0].toUpperCase() === "MOV" && one_order[1].toUpperCase() == "TO"){
-			var pos = one_order[2].split(",");
-			var x = parseInt(pos[0]), y = parseInt(pos[1]);
-			if(border(x, y)){
-				var movTo = findPath(square, square.x/50, square.y/50, x, y);
-				parseOrder[j] = movTo;
-			}
-		}else{
-			parseOrder[j] = new Array(order[j]);
-			handle(square, one_order, "parse");
-		}
-	}
-	return parseOrder;
-}
-/**
- * 运行指令
- * @params parseOrder:解析好的指令
- * @params square:小方块对象
- * @params ol:代码左侧行显示
- */
-function runOrders(parseOrder, square, ol){
-	square.x = SQUARE_RECORD.x;
-	square.y = SQUARE_RECORD.y;
-	square.dir = SQUARE_RECORD.dir;
-	map = SQUARE_RECORD.tempMap;
-
-	var count = 0;
-	for(var i in parseOrder){
-			count++;
-	}
-
-	var i = 0, j = 0;
-	var timer = setInterval(function(){
-		mark = false;
-		clearColor(ol);
-		render(ol, i, "scan");
-
-		//单独处理寻路算法到达不了目标位置
-		if(parseOrder[i].length == 0){
-			console.log("can't reach can't reach the end position");
-			render(ol, i, "error");
-			clearInterval(timer);
-			return;
-		}
-
-		var one_order = parseOrder[i][j].trim().split(" ");
-		handle(square, one_order, "run");
-
-		if(mark === false){
-			render(ol, i, "error");
-			clearInterval(timer);
-			return;
-		}
-		j++;
-		if(j == parseOrder[i].length){
-			i++;
-			j = 0;
-		}
-		if(i == count){
-			clearInterval(timer);
-			return;
-		}
-	}, 500);
-
-}
-/**
- * 处理一行指令
- * @params square:小方块对象
- * @params one_order:一行指令
- * @params tag:表示解析"parse"调用还是运行"run"调用
- */
-function handle(square, one_order, tag){
-	if(one_order[0].toUpperCase() == "GO"){
-		var num = one_order[1];
-		if(num === undefined){
-			square.go(1, tag);
-		}else if(verify(num) === true){
-			square.go(num, tag);
-		}
-	}else if(one_order[0].toUpperCase() == "MOV" && one_order[1]){
-		var num = one_order[2];
-		if(num === undefined){
-			square.movAction(one_order[1], 1, tag);
-		}else if(verify(num) === true){
-			square.movAction(one_order[1], num, tag);
-		}
-	}else if(one_order[0].toUpperCase() == "TRA" && one_order[1]){
-		var num = one_order[2];
-		if(num === undefined){
-			square.traAction(one_order[1], 1, tag);
-		}else if(verify(num) === true){
-			square.traAction(one_order[1], num, tag);
-		}
-	}else if(one_order[0].toUpperCase() == "TUN" && one_order[1]){
-		square.rotate(one_order[1], tag);
-	}else if(one_order[0].toUpperCase() == "BUILD"){
-		square.build(tag);
-	}else if(one_order[0].toUpperCase() == "BRU" && one_order[1]){
-		if(tag != "parse") square.bru(one_order[1]);
-	}
 }

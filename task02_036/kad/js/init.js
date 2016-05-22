@@ -29,17 +29,47 @@ function init(){
 
 	var execute = $("execute");
 	addEvent(execute, "click", function(){
-		//处理指令前先保存小方块状态
-		SQUARE_RECORD.x = square.x;
-		SQUARE_RECORD.y = square.y;
-		SQUARE_RECORD.dir = square.dir;
-		SQUARE_RECORD.tempMap = [];//不能直接赋值，传递的是引用！
-		for(var i = 0; i < map.length; i++){
-			SQUARE_RECORD.tempMap[i] = map[i].slice(0);
-		}
 
-		var parseOrder = parseOrders(square, text);
-		runOrders(parseOrder, square, ol);
+		var order = text.value.trim().split("\n");
+		// for(var i = 0, len = order.length; i < len; i++){
+		// 	if(checkCmd(order))
+		// }
+
+		var i = 0, j = 0, cot = 0;
+		var movToOrder = [];
+		var timer = setInterval(function(){
+			clearColor(ol);
+			sideRender(ol, i, "scan");
+			if(i == order.length){
+				clearInterval(timer);
+				return;
+			}
+			if(!checkCmd(order[i])){
+				if(/^MOV\sTO\s\d+,\d+$/i.test(order[i])){
+					if(j == 0){
+						var one_order = order[i].trim().split(" ");
+						var pos = one_order[2].split(",");
+						var endx = parseInt(pos[0]), endy = parseInt(pos[1]);
+						if(square.bound(endx, endy)) {
+							movToOrder = square.findPath(endx, endy);
+							cot = movToOrder.length;
+						}
+					}
+					if(j == cot){
+						j = 0;
+						i++;
+					}else{
+						square.operation(movToOrder[j++]);
+					}
+				}else{
+					square.operation(order[i]);
+					i++;
+				}
+			}else{
+				sideRender(ol, i, "error");
+				clearInterval(timer);
+			}
+		}, 500);
 	});
 
 	
@@ -49,6 +79,21 @@ function init(){
 	addEvent($("build"), "click", function(){
 		table.wall();
 	});
-
+	document.addEventListener("keydown", function(event){
+		if (event.target.tagName == 'BODY') {
+    		var dir = {37: 3, 38: 0, 39: 1, 40: 2}[event.keyCode];
+    		var direc = {0: "TOP", 1: "RIG", 2:"BOT", 3:"LEF"};
+    		if (typeof dir != 'undefined') {
+    			event.preventDefault();
+    			if(dir == square.dir){
+    				square.go(1);
+    			}else{
+    				square.rotate(direc[dir]);
+    			}
+    		}else if(event.keyCode == 32){
+    			square.build();
+    		}
+    	}
+	});
 }
 init();
