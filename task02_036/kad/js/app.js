@@ -24,7 +24,7 @@ Application.prototype.init = function(){
 	this.square.init();
 	this.text.value = "mov rig 8\ntun bot\ntra bot 6\nMOV TO 2,4\nBUILD\nBRU green\nmOV RIG 10\nTRA TOP 5\nmov lef 2\nGO 3";
 	this.textinit();
-	
+
 	addEvent(this.text, "keyup", this.textinit.bind(this));
 	addEvent(this.text, "scroll", this.scroll.bind(this));
 	addEvent(document, "keydown", this.hotkey.bind(this));
@@ -182,6 +182,10 @@ Application.prototype.execute = function(){
 			}else{
 				app.square.operation(order[i]);
 				i++;
+				if(i % 22 == 0) {
+					app.text.scrollTop += app.text.clientHeight;
+					app.ol.scrollTop += app.text.clientHeight;
+				}
 			}
 		}else{
 			app.sideRender(i, "error");
