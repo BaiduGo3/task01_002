@@ -10,3 +10,10 @@ function addEvent(element, eventName, listener) {
         element["on" + eventName] = listener;
     }
 }
+
+/**
+ * ie不支持trim
+ */
+String.prototype.trim = function(){
+	return this.replace(/(^\s*)|(\s*$)/g,"");
+}

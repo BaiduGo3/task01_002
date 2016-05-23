@@ -17,9 +17,15 @@ Square.prototype.init = function(){
 	this.y = 1;
 }
 
-Square.prototype.setDuration = function(duration){
-	this.duration = duration;
-	this.sq.style.transitionDuration = duration + 'ms';
+Square.prototype.checkCmd = function(one_order){
+	var regGo = /^GO(\s\d+)?$/i;
+	// var regGo = new RegExp("GO(\s\d+)?", "i");
+	var regTun = /^TUN\s(LEF|RIG|TOP|BOT)$/i;
+    var regTraMov = /^(TRA|MOV)\s(LEF|RIG|TOP|BOT)(\s\d+)?$/i;
+    var regBuild = /^BUILD$/i;
+    var regBru = /^BRU\s(#[0-9A-Fa-f]{3}|#[0-9A-Fa-f]{6}|[A-Za-z]+|rgba\(\d+,\d+,\d+,\d+\))$/i;
+    var regMovTo = /^MOV\sTO\s\d+,\d+$/i;
+    return !regGo.test(one_order) && !regTun.test(one_order) && !regTraMov.test(one_order) && !regBuild.test(one_order) && !regBru.test(one_order) && !regMovTo.test(one_order);
 }
 
 Square.prototype.bound = function(top, left){
