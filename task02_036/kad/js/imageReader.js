@@ -22,7 +22,7 @@ ImageReader.prototype.load = function(reader){
 }
 
 ImageReader.prototype.createCmd = function(data){
-	var cmds = "mov to 1,1\ntra bot\n";
+	var cmds = "mov to 1,1\ntun top\ntra bot\n";
 	for(var i = 0; i < data.length; i++){
 		if(i == data.length - 1){
 			cmds += "tun rig\ntra lef\n";
